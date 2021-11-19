@@ -1,7 +1,10 @@
 library flutter_multi_select;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/models/multi_select_value.dart';
+export 'src/models/decorations.dart';
+export 'src/models/multiselect_text_styles.dart';
+
+export 'src/containers/simple_multi_select_container.dart';
+
+export 'src/cards/multi_select_card.dart';
+export 'src/cards/simple_multiselect_card.dart';
