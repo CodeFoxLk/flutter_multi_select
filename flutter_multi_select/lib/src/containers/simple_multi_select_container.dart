@@ -84,22 +84,27 @@ class _SimpleMultiSelectContainerState<T>
       child: Wrap(
         children: _items.map((item) {
           final bool isSelected = _selectedItems.contains(item);
-          return InkWell(
-            onTap: () {
-              _onSelect(item);
-            },
-            child: AnimatedContainer(
+          return AnimatedContainer(
+            clipBehavior: Clip.hardEdge,
               duration: const Duration(milliseconds: 700),
-              margin: item.margin ?? kCardMargin,
-              padding: item.child == null && item.contentPadding == null
-                  ? kCardPadding
-                  : item.contentPadding,
               decoration: isSelected
                   ? item.decorations!.getSelectedDecoration(context)
                   : item.decorations!.getDecoration(context),
-              child: item.child ?? Text(item.label!),
-            ),
-          );
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  onTap: () {
+                    _onSelect(item);
+                  },
+                  child: Container(
+                    padding: item.child == null && item.contentPadding == null
+                        ? kCardPadding
+                        : item.contentPadding,
+                    margin: item.margin ?? kCardMargin,
+                    child: item.child ?? Text(item.label!),
+                  ),
+                ),
+              ));
         }).toList(),
       ),
     );
