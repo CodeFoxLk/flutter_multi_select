@@ -38,20 +38,34 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SimpleMultiSelectContainer(
+          prefix: MultiSelectPrefix(
+              prefix: const Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: Icon(
+                  Icons.check,
+                  size: 14,
+                ),
+              ),
+              selectedPrefix: const Padding(
+                padding: EdgeInsets.only(right: 5),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 14,
+                ),
+              )),
           maxSelectingCount: 2,
           items: [
             SimpleMultiSelectCard(label: 'Acura', value: 'Acura'),
             SimpleMultiSelectCard(label: 'Alfa Romeo', value: 'Alfa Romeo'),
             SimpleMultiSelectCard(label: 'BMW', value: 'BMW'),
             SimpleMultiSelectCard(label: 'Bentley', value: 'Bentley'),
-            SimpleMultiSelectCard(label: 'Buick', value: 'Buick'),
+            SimpleMultiSelectCard(label: 'Buick', value: 'Buick', ),
             SimpleMultiSelectCard(label: 'Cadillaco', value: 'Cadillac'),
             SimpleMultiSelectCard(label: 'Chevrolet', value: 'Chevrolet'),
             SimpleMultiSelectCard(label: 'Jaguar', value: 'Jaguar')
           ],
-          onChange: (v, a) {
-            
-          },
+          onChange: (v, a) {},
         ),
       ),
     );

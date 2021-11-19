@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const EdgeInsets kCardPadding = EdgeInsets.all(5);
+const EdgeInsets kCardPadding = EdgeInsets.symmetric(vertical: 5, horizontal: 8);
 const EdgeInsets kCardMargin = EdgeInsets.all(2);
 const EdgeInsets kContainerMargin = EdgeInsets.all(0);
 const EdgeInsets kContainerPadding = EdgeInsets.all(8);
