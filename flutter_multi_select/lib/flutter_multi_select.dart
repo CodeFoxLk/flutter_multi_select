@@ -1,6 +1,5 @@
 library flutter_multi_select;
 
-export 'src/models/multi_select_value.dart';
 export 'src/models/decorations.dart';
 export 'src/models/multiselect_text_styles.dart';
 

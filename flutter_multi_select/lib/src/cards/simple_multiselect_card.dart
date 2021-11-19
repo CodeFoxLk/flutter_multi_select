@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/multiselect_text_styles.dart';
 import '../models/decorations.dart';
-import '../models/multi_select_value.dart';
-
-class SimpleMultiSelectCard {
-  final MultiSelectValue value;
+class SimpleMultiSelectCard<T> {
+  final T value;
   final MultiSelectDecorations? decorations;
   final MultiSelectTextStyles? textStyles;
   final String? label;

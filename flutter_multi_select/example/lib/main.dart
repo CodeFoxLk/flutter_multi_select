@@ -38,27 +38,20 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SimpleMultiSelectContainer(
+          maxSelectingCount: 2,
           items: [
-            SimpleMultiSelectCard(
-                label: 'Acura', value: MultiSelectValue(value: 'Acura')),
-            SimpleMultiSelectCard(
-                label: 'Alfa Romeo',
-                value: MultiSelectValue(value: 'Alfa Romeo')),
-            SimpleMultiSelectCard(
-                label: 'BMW', value: MultiSelectValue(value: 'BMW')),
-            SimpleMultiSelectCard(
-                label: 'Bentley', value: MultiSelectValue(value: 'Bentley')),
-            SimpleMultiSelectCard(
-                label: 'Buick', value: MultiSelectValue(value: 'Buick')),
-            SimpleMultiSelectCard(
-                label: 'Cadillaco',
-                value: MultiSelectValue(value: 'Cadillac')),
-            SimpleMultiSelectCard(
-                label: 'Chevrolet', value: MultiSelectValue(value: 'Chevrolet')),
-            SimpleMultiSelectCard(
-                label: 'Jaguar', value: MultiSelectValue(value: 'Jaguar'))
+            SimpleMultiSelectCard(label: 'Acura', value: 'Acura'),
+            SimpleMultiSelectCard(label: 'Alfa Romeo', value: 'Alfa Romeo'),
+            SimpleMultiSelectCard(label: 'BMW', value: 'BMW'),
+            SimpleMultiSelectCard(label: 'Bentley', value: 'Bentley'),
+            SimpleMultiSelectCard(label: 'Buick', value: 'Buick'),
+            SimpleMultiSelectCard(label: 'Cadillaco', value: 'Cadillac'),
+            SimpleMultiSelectCard(label: 'Chevrolet', value: 'Chevrolet'),
+            SimpleMultiSelectCard(label: 'Jaguar', value: 'Jaguar')
           ],
-          onChange: (v, a) {},
+          onChange: (v, a) {
+            
+          },
         ),
       ),
     );

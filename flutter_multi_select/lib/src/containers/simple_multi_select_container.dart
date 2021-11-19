@@ -3,7 +3,7 @@ import 'package:flutter_multi_select/src/const/const_values.dart';
 import '../../flutter_multi_select.dart';
 import '../cards/simple_multiselect_card.dart';
 
-class SimpleMultiSelectContainer extends StatefulWidget {
+class SimpleMultiSelectContainer<T> extends StatefulWidget {
   const SimpleMultiSelectContainer(
       {Key? key,
       required this.items,
@@ -14,40 +14,45 @@ class SimpleMultiSelectContainer extends StatefulWidget {
       this.onMaximumSelected})
       : super(key: key);
 
-  final List<SimpleMultiSelectCard> items;
+  final List<SimpleMultiSelectCard<T>> items;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final int? maxSelectingCount;
 
-  final void Function(List<MultiSelectValue> selectedItems,
-      List<MultiSelectValue>? unselectedItems)? onMaximumSelected;
-  final void Function(List<MultiSelectValue> selectedItems,
-      List<MultiSelectValue>? unselectedItems) onChange;
+  final void Function(List<T> selectedItems, List<T>? unselectedItems)?
+      onMaximumSelected;
+  final void Function(List<T> selectedItems, List<T>? unselectedItems) onChange;
 
   @override
-  _SimpleMultiSelectContainerState createState() =>
-      _SimpleMultiSelectContainerState();
+  _SimpleMultiSelectContainerState<T> createState() =>
+      _SimpleMultiSelectContainerState<T>();
 }
 
-class _SimpleMultiSelectContainerState
-    extends State<SimpleMultiSelectContainer> {
+class _SimpleMultiSelectContainerState<T>
+    extends State<SimpleMultiSelectContainer<T>> {
   @override
   void initState() {
     _items = widget.items;
     super.initState();
   }
 
-  late final List<SimpleMultiSelectCard> _items;
-  final List<SimpleMultiSelectCard> _selectedItems = [];
+  late final List<SimpleMultiSelectCard<T>> _items;
+  final _selectedItems = <SimpleMultiSelectCard<T>>[];
 
-  void _onSelect(SimpleMultiSelectCard item) {
+  void _onSelect(SimpleMultiSelectCard<T> item) {
+    //
     if (_selectedItems.contains(item)) {
       _selectedItems.remove(item);
     } else {
+      //
       if (widget.maxSelectingCount != null &&
           widget.maxSelectingCount! <= _selectedItems.length) {
         final valuesOfSelected = getValues();
-        widget.onMaximumSelected!(valuesOfSelected, valuesOfSelected);
+        //
+        if (widget.onMaximumSelected != null) {
+          widget.onMaximumSelected!(valuesOfSelected, valuesOfSelected);
+        }
+        //
         return;
       }
       _selectedItems.add(item);
@@ -57,7 +62,7 @@ class _SimpleMultiSelectContainerState
     setState(() {});
   }
 
-  List<MultiSelectValue<dynamic>> getValues() {
+  List<T> getValues() {
     final valuesOfSelected = _selectedItems.map((si) => si.value).toList();
     return valuesOfSelected;
   }
@@ -71,11 +76,11 @@ class _SimpleMultiSelectContainerState
     return Container(
       padding: widget.padding ?? kContainerPadding,
       margin: widget.margin ?? kContainerMargin,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kContainerBorderRadius),
-          color: isDarkMode(context)
-              ? kDarkThemeContainerBackGroundColor
-              : kLightThemeContainerBackGroundColor),
+      // decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.circular(kContainerBorderRadius),
+      //     color: isDarkMode(context)
+      //         ? kDarkThemeContainerBackGroundColor
+      //         : kLightThemeContainerBackGroundColor),
       child: Wrap(
         children: _items.map((item) {
           final bool isSelected = _selectedItems.contains(item);
@@ -83,7 +88,8 @@ class _SimpleMultiSelectContainerState
             onTap: () {
               _onSelect(item);
             },
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 700),
               margin: item.margin ?? kCardMargin,
               padding: item.child == null && item.contentPadding == null
                   ? kCardPadding
