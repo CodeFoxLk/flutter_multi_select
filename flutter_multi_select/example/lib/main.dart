@@ -38,29 +38,34 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SimpleMultiSelectContainer(
-          prefix: MultiSelectPrefix(
-              prefix: const Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: Icon(
-                  Icons.check,
-                  size: 14,
-                ),
-              ),
-              selectedPrefix: const Padding(
-                padding: EdgeInsets.only(right: 5),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 14,
-                ),
-              )),
-          maxSelectingCount: 2,
+          showInListView: true,
+          wrapSettings: const WrapSettings(direction: Axis.horizontal),
+          listViewSettings:  ListViewSettings(
+            separatorBuilder: (c , i){
+              return const SizedBox(height: 20,);
+            }
+          ),
+          // prefix: MultiSelectPrefix(
+          //     selectedPrefix: const Padding(
+          //   padding: EdgeInsets.only(right: 5),
+          //   child: Icon(
+          //     Icons.check,
+          //     color: Colors.white,
+          //     size: 14,
+          //   ),
+          // )),
           items: [
+           
             SimpleMultiSelectCard(label: 'Acura', value: 'Acura'),
             SimpleMultiSelectCard(label: 'Alfa Romeo', value: 'Alfa Romeo'),
             SimpleMultiSelectCard(label: 'BMW', value: 'BMW'),
-            SimpleMultiSelectCard(label: 'Bentley', value: 'Bentley'),
-            SimpleMultiSelectCard(label: 'Buick', value: 'Buick', ),
+            SimpleMultiSelectCard(
+                label: 'Bentley', value: 'Bentley', freezeInSelected: true),
+            SimpleMultiSelectCard(
+              selected: true,
+              label: 'Buick',
+              value: 'Buick',
+            ),
             SimpleMultiSelectCard(label: 'Cadillaco', value: 'Cadillac'),
             SimpleMultiSelectCard(label: 'Chevrolet', value: 'Chevrolet'),
             SimpleMultiSelectCard(label: 'Jaguar', value: 'Jaguar')

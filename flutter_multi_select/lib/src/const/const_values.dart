@@ -9,3 +9,6 @@ const double kCardrBorderRadius = 40.0;
 
 const Color kLightThemeContainerBackGroundColor = Color(0xFFEEEEEE);
 const Color kDarkThemeContainerBackGroundColor = Color.fromARGB(255, 34, 34, 43);
+
+const double wrapSpacing = 8;
+const double wrapRunSpacing = 5;

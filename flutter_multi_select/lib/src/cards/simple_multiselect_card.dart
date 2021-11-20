@@ -15,17 +15,25 @@ class SimpleMultiSelectCard<T> {
   final Clip? clipBehavior;
   final MultiSelectPrefix? prefix;
   final MultiSelectSuffix? suffix;
+  final bool enabled;
+  final Alignment? alignment;
+  bool selected;
+  final bool freezeInSelected;
 
-  SimpleMultiSelectCard(
+  SimpleMultiSelectCard( 
       {required this.value,
       this.decorations = const MultiSelectItemDecorations(),
       this.textStyles = const MultiSelectItemTextStyles(),
       this.label,
       this.child,
       this.margin,
-      this.clipBehavior,
+      this.clipBehavior = Clip.none,
       this.prefix,
       this.suffix,
+      this.alignment, 
+      this.freezeInSelected = false,
+      this.selected = false,
+      this.enabled = true,
       this.contentPadding}) {
     if (child == null && label == null) {
       throw FlutterError(

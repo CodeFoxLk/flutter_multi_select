@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
 class MultiSelectPrefix {
-  final Widget? prefix;
+  final Widget? enabledPrefix;
   final Widget? disabledPrefix;
   final Widget? selectedPrefix;
   
-  MultiSelectPrefix({this.prefix, this.disabledPrefix, this.selectedPrefix});
+  MultiSelectPrefix({this.enabledPrefix, this.disabledPrefix, this.selectedPrefix});
 }
