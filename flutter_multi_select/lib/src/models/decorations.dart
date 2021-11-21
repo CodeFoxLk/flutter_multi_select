@@ -53,4 +53,12 @@ class MultiSelectDecorations {
             color: _colorScheme.primary,
             borderRadius: _getBorderRadius());
   }
+
+  Decoration getDisabledDecoration(BuildContext context) {
+    return decoration ??
+        BoxDecoration(
+            color: Colors.grey,
+            borderRadius: _getBorderRadius(),
+        );
+  }
 }

@@ -35,6 +35,14 @@ class MultiSelectTextStyles {
         );
   }
 
+  TextStyle getDisabledTextStyle(BuildContext context) {
+    ColorScheme _colorScheme = Theme.of(context).colorScheme;
+    return textStyle ??
+        TextStyle(
+          color: _colorScheme.onSurface,
+        );
+  }
+
   TextStyle getSelectedTextStyle(BuildContext context) {
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
     return selectedTextStyle ??

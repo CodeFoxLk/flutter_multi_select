@@ -57,7 +57,7 @@ class MyHomePage extends StatelessWidget {
           items: [
            
             SimpleMultiSelectCard(label: 'Acura', value: 'Acura'),
-            SimpleMultiSelectCard(label: 'Alfa Romeo', value: 'Alfa Romeo'),
+            SimpleMultiSelectCard(label: 'Alfa Romeo', value: 'Alfa Romeo', enabled: false),
             SimpleMultiSelectCard(label: 'BMW', value: 'BMW'),
             SimpleMultiSelectCard(
                 label: 'Bentley', value: 'Bentley', freezeInSelected: true),
@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget {
             SimpleMultiSelectCard(label: 'Chevrolet', value: 'Chevrolet'),
             SimpleMultiSelectCard(label: 'Jaguar', value: 'Jaguar')
           ],
-          onChange: (v, a) {},
+          onChange: (v, a, i) {},
         ),
       ),
     );
