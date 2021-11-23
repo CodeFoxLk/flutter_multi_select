@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../controller/multiselect_controller.dart';
+import '../common/common.dart';
+import '../models/decorations.dart';
+import '../models/multiselect_text_styles.dart';
 import '../const/const_values.dart';
 import '../models/alignments.dart';
 import '../models/animations.dart';
@@ -6,7 +10,6 @@ import '../models/multiselect_list_settings.dart';
 import '../models/multiselect_prefix.dart';
 import '../models/multiselect_suffix.dart';
 import '../models/multiselect_wrap_settings.dart';
-import '../../flutter_multi_select.dart';
 import '../cards/simple_multiselect_card.dart';
 
 class SimpleMultiSelectContainer<T> extends StatefulWidget {
@@ -29,6 +32,7 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     this.animations = const MultiSelectSimpleAnimations(),
     this.alignments = const MultiSelectSimpleAlignments(),
     this.onDisabledTap,
+    this.controller,
   }) : super(key: key);
 
   final List<SimpleMultiSelectCard<T>> items;
@@ -45,15 +49,16 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
   final WrapSettings wrapSettings;
   final ListViewSettings listViewSettings;
   final bool showInListView;
+  final MultiSelectController<T>? controller;
 
-  final void Function(List<T> selectedItems, List<T>? unselectedItems,
-      SimpleMultiSelectCard<T> selectedItem)? onMaximumSelected;
-  final void Function(List<T> selectedItems, List<T>? unselectedItems,
-      SimpleMultiSelectCard<T> selectedItem) onChange;
+  final void Function(List<T> selectedItems, T selectedItem)?
+      onMaximumSelected;
+  final void Function(
+      List<T> selectedItems, T selectedItem) onChange;
   final void Function(SimpleMultiSelectCard<T> selectedItem)? onDisabledTap;
 
   @override
-  _SimpleMultiSelectContainerState<T> createState() =>
+  _SimpleMultiSelectContainerState createState() =>
       _SimpleMultiSelectContainerState<T>();
 }
 
@@ -70,6 +75,31 @@ class _SimpleMultiSelectContainerState<T>
   final _selectedItems = <SimpleMultiSelectCard<T>>[];
   int _freezeSelectedItemsCount = 0;
 
+  @override
+  void didUpdateWidget(SimpleMultiSelectContainer<T> oldWidget) {
+    if (widget.controller != null) {
+      widget.controller!.unSelectAll = oldWidget.controller!.unSelectAll;
+      widget.controller!.getSelectedItems =
+          oldWidget.controller!.getSelectedItems;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _unSelectAll() {
+    _selectedItems.removeWhere((item) {
+      item.selected = false;
+
+      return widget.controller!.unSelectFreezedItems
+          ? true
+          : !item.freezeInSelected;
+    });
+    setState(() {});
+  }
+
+  List<T> _getSelectedItems() {
+    return _getValues();
+  }
+
   void addInitiallySelectedItemsToSelectedList() {
     final initiallySelected =
         _items.where((item) => item.selected || item.freezeInSelected).toList();
@@ -82,6 +112,7 @@ class _SimpleMultiSelectContainerState<T>
     if (!item.freezeInSelected) {
       if (_selectedItems.contains(item)) {
         _selectedItems.remove(item);
+        item.selected = false;
       } else {
         //
         int? maxSelectingCount = widget.maxSelectingCount;
@@ -97,7 +128,7 @@ class _SimpleMultiSelectContainerState<T>
           final valuesOfSelected = _getValues();
           //
           if (widget.onMaximumSelected != null) {
-            widget.onMaximumSelected!(valuesOfSelected, valuesOfSelected, item);
+            widget.onMaximumSelected!(valuesOfSelected, item.value);
           }
           //
         } else {
@@ -107,7 +138,8 @@ class _SimpleMultiSelectContainerState<T>
     }
     //
     final valuesOfSelected = _getValues();
-    widget.onChange(valuesOfSelected, valuesOfSelected, item);
+
+    widget.onChange(valuesOfSelected, item.value);
     setState(() {});
   }
 
@@ -118,30 +150,6 @@ class _SimpleMultiSelectContainerState<T>
 
   bool _isDarkMode(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark;
-  }
-
-  Decoration _getDecoration(SimpleMultiSelectCard<T> item, bool isSelected) {
-    final decoration = !item.enabled
-        ? item.decorations.disabledDecoration ??
-            widget.itemsDecoration.getDisabledDecoration(context)
-        : isSelected
-            ? item.decorations.selectedDecoration ??
-                widget.itemsDecoration.getSelectedDecoration(context)
-            : item.decorations.decoration ??
-                widget.itemsDecoration.getDecoration(context);
-    return decoration;
-  }
-
-  TextStyle _getTextStyle(SimpleMultiSelectCard<T> item, bool isSelected) {
-    final textStyle = !item.enabled
-        ? item.textStyles.disabledTextStyle ??
-            widget.textStyles.getDisabledTextStyle(context)
-        : isSelected
-            ? item.textStyles.selectedTextStyle ??
-                widget.textStyles.getSelectedTextStyle(context)
-            : item.textStyles.textStyle ??
-                widget.textStyles.getTextStyle(context);
-    return textStyle;
   }
 
   MultiSelectPrefix? _getPrefix(SimpleMultiSelectCard<T> item) {
@@ -226,7 +234,8 @@ class _SimpleMultiSelectContainerState<T>
         duration: widget.animations.decorationAimationDuration,
         curve: widget.animations.decorationAnimationCurve,
         //
-        decoration: _getDecoration(item, isSelected),
+        decoration: getDecoration(item.decorations, widget.itemsDecoration,
+            isSelected, item.enabled, context),
         //
         child: Material(
           type: MaterialType.transparency,
@@ -281,7 +290,8 @@ class _SimpleMultiSelectContainerState<T>
                   AnimatedDefaultTextStyle(
                     duration: widget.animations.labelAimationDuration,
                     curve: widget.animations.labeAnimationlCurve,
-                    style: _getTextStyle(item, isSelected),
+                    style: getTextStyle(item.textStyles, widget.textStyles,
+                        isSelected, item.enabled, context),
                     child: item.child ??
                         Text(
                           item.label!,

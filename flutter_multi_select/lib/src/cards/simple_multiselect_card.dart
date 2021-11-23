@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_select/src/models/multiselect_prefix.dart';
-import 'package:flutter_multi_select/src/models/multiselect_suffix.dart';
+import '../models/multiselect_prefix.dart';
+import '../models/multiselect_suffix.dart';
 import '../models/multiselect_text_styles.dart';
 import '../models/decorations.dart';
 

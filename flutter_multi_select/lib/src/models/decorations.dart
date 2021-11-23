@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_select/src/const/const_values.dart';
-
+import '../const/const_values.dart';
 
 ///unique Decoration styles for each item
 class MultiSelectItemDecorations {
@@ -39,8 +37,8 @@ class MultiSelectDecorations {
   Decoration getDecoration(BuildContext context) {
     return decoration ??
         BoxDecoration(
-            color: Colors.white,
-            borderRadius: _getBorderRadius(),
+          color: Colors.white,
+          borderRadius: _getBorderRadius(),
         );
   }
 
@@ -57,8 +55,46 @@ class MultiSelectDecorations {
   Decoration getDisabledDecoration(BuildContext context) {
     return decoration ??
         BoxDecoration(
-            color: Colors.grey,
-            borderRadius: _getBorderRadius(),
+          color: Colors.grey,
+          borderRadius: _getBorderRadius(),
+        );
+  }
+
+  static MultiSelectDecorations checkListViewinitialDecoration =
+      const MultiSelectDecorations(
+          decoration: BoxDecoration(borderRadius: BorderRadius.zero),
+          selectedDecoration: BoxDecoration(borderRadius: BorderRadius.zero),
+          disabledDecoration: BoxDecoration(borderRadius: BorderRadius.zero));
+}
+
+class CheckListViewinitialDecoration extends MultiSelectDecorations {
+  const CheckListViewinitialDecoration();
+
+  @override
+  Decoration getDecoration(BuildContext context) {
+    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    return decoration ??
+        BoxDecoration(
+          color: tileTheme.tileColor,
+        );
+  }
+
+  @override
+  Decoration getSelectedDecoration(BuildContext context) {
+    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    return selectedDecoration ??
+        BoxDecoration(
+          color: tileTheme.selectedTileColor,
+        );
+  }
+
+  @override
+  Decoration getDisabledDecoration(BuildContext context) {
+    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    final ThemeData themeData = Theme.of(context);
+    return decoration ??
+        BoxDecoration(
+          color: themeData.disabledColor,
         );
   }
 }

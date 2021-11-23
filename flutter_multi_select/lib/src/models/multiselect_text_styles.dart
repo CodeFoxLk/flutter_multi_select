@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 ///unique text styles for each item
@@ -49,5 +48,31 @@ class MultiSelectTextStyles {
         TextStyle(
           color: _colorScheme.onPrimary,
         );
+  }
+}
+
+class CheckListViewInitialTS extends MultiSelectTextStyles {
+  const CheckListViewInitialTS();
+
+  @override
+  TextStyle getTextStyle(BuildContext context) {
+    final theme = Theme.of(context);
+    final TextStyle style = theme.textTheme.bodyText1!;
+    return textStyle ?? style;
+  }
+
+  @override
+  TextStyle getSelectedTextStyle(BuildContext context) {
+    final theme = Theme.of(context);
+    final TextStyle style = theme.textTheme.bodyText1!;
+    return selectedTextStyle ?? style;
+  }
+
+  @override
+  TextStyle getDisabledTextStyle(BuildContext context) {
+    final theme = Theme.of(context);
+    final TextStyle style = theme.textTheme.bodyText1!;
+    final Color? color = theme.textTheme.caption!.color;
+    return disabledTextStyle ?? style.copyWith(color: color);
   }
 }

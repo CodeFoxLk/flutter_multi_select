@@ -12,3 +12,5 @@ const Color kDarkThemeContainerBackGroundColor = Color.fromARGB(255, 34, 34, 43)
 
 const double wrapSpacing = 8;
 const double wrapRunSpacing = 5;
+
+const EdgeInsets kCheckListPadding = EdgeInsets.symmetric(vertical: 15, horizontal: 10);
