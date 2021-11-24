@@ -53,16 +53,11 @@ class MyHomePage extends StatelessWidget {
             child: const Text('Clear all')),
         ElevatedButton(
             onPressed: () {
-              var list = _controller.getSelectedItems();
-              _tse.clear();
-              print(list.length);
+             
             },
             child: const Text('get selected all')),
         MultiSelectCheckList(
-          itemsDecoration: const MultiSelectDecorations(
-            disabledDecoration: BoxDecoration(color: Colors.amber),
-            decoration: BoxDecoration(),
-          ),
+          itemsDecoration: const MultiSelectDecorations(),
           controller: _controller,
           items: [
             CheckListCard(

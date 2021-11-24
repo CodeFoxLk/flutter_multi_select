@@ -135,6 +135,30 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     return valuesOfSelected;
   }
 
+  Decoration getDecoration(
+      MultiSelectItemDecorations itemDecoration,
+      MultiSelectDecorations commonItemsDecoration,
+      bool isSelected,
+      bool enabled,
+      BuildContext context) {
+    const checkListViewinitialDecoration = CheckListViewinitialDecoration();
+
+    final decoration = !enabled
+        ? itemDecoration.disabledDecoration ??
+            commonItemsDecoration.disabledDecoration ??
+            checkListViewinitialDecoration.getDisabledDecoration(context)
+        ///////
+        : isSelected
+            ? itemDecoration.selectedDecoration ??
+                commonItemsDecoration.selectedDecoration ??
+                checkListViewinitialDecoration.getSelectedDecoration(context)
+            ////
+            : itemDecoration.decoration ??
+                commonItemsDecoration.decoration ??
+                checkListViewinitialDecoration.getDecoration(context);
+    return decoration;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -187,7 +211,8 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
           duration: widget.animations.decorationAimationDuration,
           curve: widget.animations.decorationAnimationCurve,
           //
-          decoration: getDecoration(_item.decorations, widget.itemsDecoration, isSelected, _item.enabled, context),
+          decoration: getDecoration(_item.decorations, widget.itemsDecoration,
+              isSelected, _item.enabled, context),
           //
           child: Material(
             type: MaterialType.transparency,

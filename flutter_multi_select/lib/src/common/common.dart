@@ -18,25 +18,5 @@ TextStyle getTextStyle(
   return textStyle;
 }
 
-Decoration getDecoration(
-    MultiSelectItemDecorations itemDecoration,
-    MultiSelectDecorations commonItemsDecoration,
-    bool isSelected,
-    bool enabled,
-    BuildContext context) {
 
-    const checkListViewinitialDecoration = CheckListViewinitialDecoration(
-      decoration: commonItemsDecoration.decoration
-    ); 
-    
 
-  final decoration = !enabled
-      ? itemDecoration.disabledDecoration ??
-          checkListViewinitialDecoration.getDisabledDecoration(context)
-      : isSelected
-          ? itemDecoration.selectedDecoration ??
-              checkListViewinitialDecoration.getSelectedDecoration(context)
-          : itemDecoration.decoration ??
-              checkListViewinitialDecoration.getDecoration(context);
-  return decoration;
-}

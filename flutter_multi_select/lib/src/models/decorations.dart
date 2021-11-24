@@ -61,9 +61,42 @@ class MultiSelectDecorations {
   }
 }
 
+
+class SimplecardinitialDecoration extends MultiSelectDecorations {
+  const SimplecardinitialDecoration();
+
+  @override
+  Decoration getDecoration(BuildContext context) {
+    return decoration ??
+        BoxDecoration(
+          color: Colors.white,
+          borderRadius: _getBorderRadius(),
+        );
+  }
+
+  @override
+  Decoration getSelectedDecoration(BuildContext context) {
+    // ChipThemeData  _chipData = Theme.of(context).chipTheme;
+    ColorScheme _colorScheme = Theme.of(context).colorScheme;
+    return selectedDecoration ??
+        BoxDecoration(
+            //gradient: LinearGradient(colors: [_colorScheme.primary.withOpacity(0.5), _colorScheme.primary]),
+            color: _colorScheme.primary,
+            borderRadius: _getBorderRadius());
+  }
+
+  @override
+  Decoration getDisabledDecoration(BuildContext context) {
+    return disabledDecoration ??
+        BoxDecoration(
+          color: Colors.grey,
+          borderRadius: _getBorderRadius(),
+        );
+  }
+}
+
 class CheckListViewinitialDecoration extends MultiSelectDecorations {
-  const CheckListViewinitialDecoration({Decoration? decoration})
-      : super(decoration: decoration);
+  const CheckListViewinitialDecoration() : super();
 
   @override
   Decoration getDecoration(BuildContext context) {
@@ -85,7 +118,6 @@ class CheckListViewinitialDecoration extends MultiSelectDecorations {
 
   @override
   Decoration getDisabledDecoration(BuildContext context) {
-    final ListTileTheme tileTheme = ListTileTheme.of(context);
     final ThemeData themeData = Theme.of(context);
     return decoration ??
         BoxDecoration(

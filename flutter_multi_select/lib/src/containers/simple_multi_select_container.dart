@@ -22,7 +22,7 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     this.maxSelectingCount,
     this.isMaxSelectingCountWithFreezedSelects = false,
     this.onMaximumSelected,
-    this.itemsDecoration = const MultiSelectDecorations(),
+    this.itemsDecoration = const SimplecardinitialDecoration(),
     this.textStyles = const MultiSelectTextStyles(),
     this.prefix,
     this.suffix,
@@ -92,10 +92,6 @@ class _SimpleMultiSelectContainerState<T>
     setState(() {});
   }
 
-  List<T> _getSelectedItems() {
-    return _getValues();
-  }
-
   void addInitiallySelectedItemsToSelectedList() {
     final initiallySelected =
         _items.where((item) => item.selected || item.freezeInSelected).toList();
@@ -156,6 +152,30 @@ class _SimpleMultiSelectContainerState<T>
   MultiSelectSuffix? _getSuffix(SimpleMultiSelectCard<T> item) {
     final MultiSelectSuffix? suffix = item.suffix ?? widget.suffix;
     return suffix;
+  }
+
+  Decoration getDecoration(
+      MultiSelectItemDecorations itemDecoration,
+      MultiSelectDecorations commonItemsDecoration,
+      bool isSelected,
+      bool enabled,
+      BuildContext context) {
+    const simpleCardDecoration = SimplecardinitialDecoration();
+
+    final decoration = !enabled
+        ? itemDecoration.disabledDecoration ??
+            commonItemsDecoration.disabledDecoration ??
+            simpleCardDecoration.getDisabledDecoration(context)
+        ///////
+        : isSelected
+            ? itemDecoration.selectedDecoration ??
+                commonItemsDecoration.selectedDecoration ??
+                simpleCardDecoration.getSelectedDecoration(context)
+            ////
+            : itemDecoration.decoration ??
+                commonItemsDecoration.decoration ??
+                simpleCardDecoration.getDecoration(context);
+    return decoration;
   }
 
   @override
