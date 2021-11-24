@@ -53,22 +53,17 @@ class MultiSelectDecorations {
   }
 
   Decoration getDisabledDecoration(BuildContext context) {
-    return decoration ??
+    return disabledDecoration ??
         BoxDecoration(
           color: Colors.grey,
           borderRadius: _getBorderRadius(),
         );
   }
-
-  static MultiSelectDecorations checkListViewinitialDecoration =
-      const MultiSelectDecorations(
-          decoration: BoxDecoration(borderRadius: BorderRadius.zero),
-          selectedDecoration: BoxDecoration(borderRadius: BorderRadius.zero),
-          disabledDecoration: BoxDecoration(borderRadius: BorderRadius.zero));
 }
 
 class CheckListViewinitialDecoration extends MultiSelectDecorations {
-  const CheckListViewinitialDecoration();
+  const CheckListViewinitialDecoration({Decoration? decoration})
+      : super(decoration: decoration);
 
   @override
   Decoration getDecoration(BuildContext context) {

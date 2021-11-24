@@ -187,8 +187,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
           duration: widget.animations.decorationAimationDuration,
           curve: widget.animations.decorationAnimationCurve,
           //
-          decoration: getDecoration(_item.decorations, widget.itemsDecoration,
-              isSelected, _item.enabled, context),
+          decoration: getDecoration(_item.decorations, widget.itemsDecoration, isSelected, _item.enabled, context),
           //
           child: Material(
             type: MaterialType.transparency,

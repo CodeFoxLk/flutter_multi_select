@@ -24,3 +24,7 @@ class MultiSelectSimpleAnimations {
     this.labeAnimationlCurve = Curves.linear,
   });
 }
+
+class AdvanceMultiSelectAnimations{
+  const AdvanceMultiSelectAnimations();
+}

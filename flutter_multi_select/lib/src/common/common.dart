@@ -2,35 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_select/flutter_multi_select.dart';
 import '../models/multiselect_text_styles.dart';
 
-TextStyle getTextStyle( MultiSelectItemTextStyles itemTextStyles, MultiSelectTextStyles containerTextStyles,
+TextStyle getTextStyle(
+    MultiSelectItemTextStyles itemTextStyles,
+    MultiSelectTextStyles commonTextStyles,
     bool isSelected,
     bool enabled,
     BuildContext context) {
   final TextStyle textStyle = !enabled
       ? itemTextStyles.disabledTextStyle ??
-          containerTextStyles.getDisabledTextStyle(context)
+          commonTextStyles.getDisabledTextStyle(context)
       : isSelected
           ? itemTextStyles.selectedTextStyle ??
-              containerTextStyles.getSelectedTextStyle(context)
-          : itemTextStyles.textStyle ??
-              containerTextStyles.getTextStyle(context);
+              commonTextStyles.getSelectedTextStyle(context)
+          : itemTextStyles.textStyle ?? commonTextStyles.getTextStyle(context);
   return textStyle;
 }
 
 Decoration getDecoration(
-  MultiSelectItemDecorations itemDecoration,
-    MultiSelectDecorations containerDecoration,
-    
+    MultiSelectItemDecorations itemDecoration,
+    MultiSelectDecorations commonItemsDecoration,
     bool isSelected,
     bool enabled,
     BuildContext context) {
+
+    const checkListViewinitialDecoration = CheckListViewinitialDecoration(
+      decoration: commonItemsDecoration.decoration
+    ); 
+    
+
   final decoration = !enabled
       ? itemDecoration.disabledDecoration ??
-          containerDecoration.getDisabledDecoration(context)
+          checkListViewinitialDecoration.getDisabledDecoration(context)
       : isSelected
           ? itemDecoration.selectedDecoration ??
-              containerDecoration.getSelectedDecoration(context)
+              checkListViewinitialDecoration.getSelectedDecoration(context)
           : itemDecoration.decoration ??
-              containerDecoration.getDecoration(context);
+              checkListViewinitialDecoration.getDecoration(context);
   return decoration;
 }

@@ -33,8 +33,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
-   final MultiSelectController<String> _controller = MultiSelectController(unSelectFreezedItems: true);
-   final TextEditingController _tse = TextEditingController();
+  final MultiSelectController<String> _controller =
+      MultiSelectController(unSelectFreezedItems: true);
+  final TextEditingController _tse = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +53,16 @@ class MyHomePage extends StatelessWidget {
             child: const Text('Clear all')),
         ElevatedButton(
             onPressed: () {
-             var list = _controller.getSelectedItems();
-             _tse.clear();
-             print(list.length);
+              var list = _controller.getSelectedItems();
+              _tse.clear();
+              print(list.length);
             },
             child: const Text('get selected all')),
         MultiSelectCheckList(
+          itemsDecoration: const MultiSelectDecorations(
+            disabledDecoration: BoxDecoration(color: Colors.amber),
+            decoration: BoxDecoration(),
+          ),
           controller: _controller,
           items: [
             CheckListCard(

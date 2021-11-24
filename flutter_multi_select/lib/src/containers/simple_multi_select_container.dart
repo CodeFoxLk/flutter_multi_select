@@ -31,7 +31,6 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     this.showInListView = false,
     this.animations = const MultiSelectSimpleAnimations(),
     this.alignments = const MultiSelectSimpleAlignments(),
-    this.onDisabledTap,
     this.controller,
   }) : super(key: key);
 
@@ -51,11 +50,8 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
   final bool showInListView;
   final MultiSelectController<T>? controller;
 
-  final void Function(List<T> selectedItems, T selectedItem)?
-      onMaximumSelected;
-  final void Function(
-      List<T> selectedItems, T selectedItem) onChange;
-  final void Function(SimpleMultiSelectCard<T> selectedItem)? onDisabledTap;
+  final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
+  final void Function(List<T> selectedItems, T selectedItem) onChange;
 
   @override
   _SimpleMultiSelectContainerState createState() =>
@@ -241,11 +237,7 @@ class _SimpleMultiSelectContainerState<T>
           type: MaterialType.transparency,
           child: InkWell(
             onTap: item.enabled == false
-                ? widget.onDisabledTap == null
-                    ? null
-                    : () {
-                        widget.onDisabledTap!(item);
-                      }
+                ? null
                 : () {
                     _onChange(item);
                   },
