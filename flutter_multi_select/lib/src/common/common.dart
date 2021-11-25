@@ -8,15 +8,20 @@ TextStyle getTextStyle(
     bool isSelected,
     bool enabled,
     BuildContext context) {
+  ColorScheme _colorScheme = Theme.of(context).colorScheme;
   final TextStyle textStyle = !enabled
-      ? itemTextStyles.disabledTextStyle ??
-          commonTextStyles.getDisabledTextStyle(context)
+      ? itemTextStyles.disabledTextStyle == null
+          ? commonTextStyles.getDisabledTextStyle(context)
+          : TextStyle(color: _colorScheme.onSurface)
+              .merge(itemTextStyles.disabledTextStyle)
       : isSelected
-          ? itemTextStyles.selectedTextStyle ??
-              commonTextStyles.getSelectedTextStyle(context)
-          : itemTextStyles.textStyle ?? commonTextStyles.getTextStyle(context);
+          ? itemTextStyles.selectedTextStyle == null
+              ? commonTextStyles.getSelectedTextStyle(context)
+              : TextStyle(color: _colorScheme.onSurface)
+                  .merge(itemTextStyles.selectedTextStyle)
+          : itemTextStyles.textStyle == null
+              ? commonTextStyles.getTextStyle(context)
+              : TextStyle(color: _colorScheme.onPrimary)
+                  .merge(itemTextStyles.textStyle);
   return textStyle;
 }
-
-
-

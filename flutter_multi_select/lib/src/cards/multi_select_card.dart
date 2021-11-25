@@ -4,7 +4,15 @@ class AdvanceMultiSelectCard<T> {
   final Widget child;
   final Widget? selectedChild;
   final Widget? disabledChild;
+  final bool freezeInSelected;
   final T value;
+  bool selected;
 
-  const AdvanceMultiSelectCard({required this.value, required this.child, this.selectedChild, this.disabledChild});
+  AdvanceMultiSelectCard(
+      {required this.value,
+      required this.child,
+      this.selected = false,
+      this.freezeInSelected = false,
+      this.selectedChild,
+      this.disabledChild});
 }

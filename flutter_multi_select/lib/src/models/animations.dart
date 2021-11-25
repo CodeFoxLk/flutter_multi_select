@@ -14,17 +14,19 @@ class MultiSelectSimpleAnimations {
   final Curve labeAnimationlCurve;
 
   const MultiSelectSimpleAnimations({
-    this.decorationAimationDuration = const Duration(milliseconds: 350),
+    this.decorationAimationDuration = const Duration(milliseconds: 250),
     this.decorationAnimationCurve = Curves.linear,
-    this.prefixAimationDuration = const Duration(milliseconds: 250),
+    this.prefixAimationDuration = const Duration(milliseconds: 150),
     this.prefixAnimationCurve = Curves.linear,
-    this.suffixAimationDuration = const Duration(milliseconds: 250),
+    this.suffixAimationDuration = const Duration(milliseconds: 150),
     this.suffixAnimationCurve = Curves.linear,
-    this.labelAimationDuration = const Duration(milliseconds: 250),
+    this.labelAimationDuration = const Duration(milliseconds: 200),
     this.labeAnimationlCurve = Curves.linear,
   });
 }
 
 class AdvanceMultiSelectAnimations{
-  const AdvanceMultiSelectAnimations();
+  const AdvanceMultiSelectAnimations(
+    
+  );
 }

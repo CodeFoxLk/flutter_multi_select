@@ -67,9 +67,10 @@ class SimplecardinitialDecoration extends MultiSelectDecorations {
 
   @override
   Decoration getDecoration(BuildContext context) {
+     ColorScheme _colorScheme = Theme.of(context).colorScheme;
     return decoration ??
         BoxDecoration(
-          color: Colors.white,
+          color: _colorScheme.surface,
           borderRadius: _getBorderRadius(),
         );
   }

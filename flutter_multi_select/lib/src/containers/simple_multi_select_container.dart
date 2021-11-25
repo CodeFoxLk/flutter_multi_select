@@ -17,8 +17,6 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     Key? key,
     required this.items,
     required this.onChange,
-    this.padding,
-    this.margin,
     this.maxSelectingCount,
     this.isMaxSelectingCountWithFreezedSelects = false,
     this.onMaximumSelected,
@@ -35,8 +33,6 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
   }) : super(key: key);
 
   final List<SimpleMultiSelectCard<T>> items;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
   final int? maxSelectingCount;
   final bool isMaxSelectingCountWithFreezedSelects;
   final MultiSelectDecorations itemsDecoration;
@@ -64,6 +60,11 @@ class _SimpleMultiSelectContainerState<T>
   void initState() {
     _items = widget.items;
     addInitiallySelectedItemsToSelectedList();
+    if (widget.controller != null) {
+      widget.controller!.deselectAll = _deSelectAll;
+      widget.controller!.getSelectedItems = _getValues;
+      widget.controller!.selectAll = _selectAll;
+    }
     super.initState();
   }
 
@@ -74,21 +75,26 @@ class _SimpleMultiSelectContainerState<T>
   @override
   void didUpdateWidget(SimpleMultiSelectContainer<T> oldWidget) {
     if (widget.controller != null) {
-      widget.controller!.unSelectAll = oldWidget.controller!.unSelectAll;
-      widget.controller!.getSelectedItems =
-          oldWidget.controller!.getSelectedItems;
+      widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
+      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
+      widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  void _unSelectAll() {
+  void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
 
-      return widget.controller!.unSelectFreezedItems
+      return widget.controller!.deselectFreezedItems
           ? true
           : !item.freezeInSelected;
     });
+    setState(() {});
+  }
+
+  void _selectAll(){
+    _selectedItems.addAll(_items);
     setState(() {});
   }
 
@@ -140,10 +146,6 @@ class _SimpleMultiSelectContainerState<T>
     return valuesOfSelected;
   }
 
-  bool _isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
-  }
-
   MultiSelectPrefix? _getPrefix(SimpleMultiSelectCard<T> item) {
     final MultiSelectPrefix? prefix = item.prefix ?? widget.prefix;
     return prefix;
@@ -180,61 +182,51 @@ class _SimpleMultiSelectContainerState<T>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: widget.padding ?? kContainerPadding,
-      margin: widget.margin ?? kContainerMargin,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kContainerBorderRadius),
-          color: _isDarkMode(context)
-              ? kDarkThemeContainerBackGroundColor
-              : kLightThemeContainerBackGroundColor),
-      child: widget.showInListView
-          ? ListView.separated(
-              shrinkWrap: widget.listViewSettings.shrinkWrap,
-              scrollDirection: widget.listViewSettings.scrollDirection,
-              reverse: widget.listViewSettings.reverse,
-              addAutomaticKeepAlives:
-                  widget.listViewSettings.addAutomaticKeepAlives,
-              addRepaintBoundaries:
-                  widget.listViewSettings.addRepaintBoundaries,
-              dragStartBehavior: widget.listViewSettings.dragStartBehavior,
-              keyboardDismissBehavior:
-                  widget.listViewSettings.keyboardDismissBehavior,
-              clipBehavior: widget.listViewSettings.clipBehavior,
-              controller: widget.listViewSettings.controller,
-              primary: widget.listViewSettings.primary,
-              physics: widget.listViewSettings.physics,
-              padding: widget.listViewSettings.padding,
-              cacheExtent: widget.listViewSettings.cacheExtent,
-              restorationId: widget.listViewSettings.restorationId,
-              itemCount: _items.length,
-              separatorBuilder: widget.listViewSettings.separatorBuilder ??
-                  (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 5,
-                    );
-                  },
-              itemBuilder: (BuildContext context, int index) {
-                return getItem(_items[index]);
-              },
-            )
-          : Wrap(
-              //
-              direction: widget.wrapSettings.direction,
-              alignment: widget.wrapSettings.alignment,
-              spacing: widget.wrapSettings.spacing,
-              runAlignment: widget.wrapSettings.runAlignment,
-              runSpacing: widget.wrapSettings.runSpacing,
-              crossAxisAlignment: widget.wrapSettings.crossAxisAlignment,
-              textDirection: widget.wrapSettings.textDirection,
-              verticalDirection: widget.wrapSettings.verticalDirection,
-              clipBehavior: widget.wrapSettings.clipBehavior,
-              children: _items.map((item) {
-                var animatedContainer = getItem(item);
-                return animatedContainer;
-              }).toList(),
-            ),
-    );
+    return widget.showInListView
+        ? ListView.separated(
+            shrinkWrap: widget.listViewSettings.shrinkWrap,
+            scrollDirection: widget.listViewSettings.scrollDirection,
+            reverse: widget.listViewSettings.reverse,
+            addAutomaticKeepAlives:
+                widget.listViewSettings.addAutomaticKeepAlives,
+            addRepaintBoundaries: widget.listViewSettings.addRepaintBoundaries,
+            dragStartBehavior: widget.listViewSettings.dragStartBehavior,
+            keyboardDismissBehavior:
+                widget.listViewSettings.keyboardDismissBehavior,
+            clipBehavior: widget.listViewSettings.clipBehavior,
+            controller: widget.listViewSettings.controller,
+            primary: widget.listViewSettings.primary,
+            physics: widget.listViewSettings.physics,
+            padding: widget.listViewSettings.padding,
+            cacheExtent: widget.listViewSettings.cacheExtent,
+            restorationId: widget.listViewSettings.restorationId,
+            itemCount: _items.length,
+            separatorBuilder: widget.listViewSettings.separatorBuilder ??
+                (BuildContext context, int index) {
+                  return const SizedBox(
+                    height: 5,
+                  );
+                },
+            itemBuilder: (BuildContext context, int index) {
+              return getItem(_items[index]);
+            },
+          )
+        : Wrap(
+            //
+            direction: widget.wrapSettings.direction,
+            alignment: widget.wrapSettings.alignment,
+            spacing: widget.wrapSettings.spacing,
+            runAlignment: widget.wrapSettings.runAlignment,
+            runSpacing: widget.wrapSettings.runSpacing,
+            crossAxisAlignment: widget.wrapSettings.crossAxisAlignment,
+            textDirection: widget.wrapSettings.textDirection,
+            verticalDirection: widget.wrapSettings.verticalDirection,
+            clipBehavior: widget.wrapSettings.clipBehavior,
+            children: _items.map((item) {
+              var animatedContainer = getItem(item);
+              return animatedContainer;
+            }).toList(),
+          );
   }
 
   Widget getItem(SimpleMultiSelectCard<T> item) {
@@ -243,9 +235,7 @@ class _SimpleMultiSelectContainerState<T>
     final _suffix = _getSuffix(item);
     return AnimatedContainer(
         //
-        clipBehavior: item.clipBehavior == null
-            ? (item.child == null ? Clip.hardEdge : item.clipBehavior!)
-            : item.clipBehavior!,
+        clipBehavior: item.clipBehavior,
         //
         duration: widget.animations.decorationAimationDuration,
         curve: widget.animations.decorationAnimationCurve,
@@ -302,8 +292,7 @@ class _SimpleMultiSelectContainerState<T>
                   AnimatedDefaultTextStyle(
                     duration: widget.animations.labelAimationDuration,
                     curve: widget.animations.labeAnimationlCurve,
-                    style: getTextStyle(item.textStyles, widget.textStyles,
-                        isSelected, item.enabled, context),
+                    style: getTextStyle(item.textStyles, widget.textStyles, isSelected, item.enabled, context),
                     child: item.child ??
                         Text(
                           item.label!,

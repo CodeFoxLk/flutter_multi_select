@@ -50,8 +50,9 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     _items = widget.items;
     addInitiallySelectedItemsToSelectedList();
     if (widget.controller != null) {
-      widget.controller!.unSelectAll = _unSelectAll;
-      widget.controller!.getSelectedItems = _getSelectedItems;
+      widget.controller!.deselectAll = _deSelectAll;
+      widget.controller!.getSelectedItems = _getValues;
+      widget.controller!.selectAll = _selectAll;
     }
     super.initState();
   }
@@ -59,9 +60,9 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   @override
   void didUpdateWidget(MultiSelectCheckList<T> oldWidget) {
     if (widget.controller != null) {
-      widget.controller!.unSelectAll = oldWidget.controller!.unSelectAll;
-      widget.controller!.getSelectedItems =
-          oldWidget.controller!.getSelectedItems;
+      widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
+      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
+      widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -78,19 +79,20 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
         _items.where((item) => item.freezeInSelected).length;
   }
 
-  void _unSelectAll() {
+  void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
 
-      return widget.controller!.unSelectFreezedItems
+      return widget.controller!.deselectFreezedItems
           ? true
           : !item.freezeInSelected;
     });
     setState(() {});
   }
 
-  List<T> _getSelectedItems() {
-    return _getValues();
+  void _selectAll(){
+    _selectedItems.addAll(_items);
+    setState(() {});
   }
 
   void _onChange(CheckListCard<T> item) {

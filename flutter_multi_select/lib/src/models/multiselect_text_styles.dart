@@ -28,26 +28,29 @@ class MultiSelectTextStyles {
 
   TextStyle getTextStyle(BuildContext context) {
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
-    return textStyle ??
-        TextStyle(
-          color: _colorScheme.onSurface,
-        );
+    return textStyle == null
+        ? TextStyle(
+            color: _colorScheme.onSurface,
+          )
+        : TextStyle(color: _colorScheme.onSurface).merge(textStyle);
   }
 
   TextStyle getDisabledTextStyle(BuildContext context) {
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
-    return textStyle ??
-        TextStyle(
-          color: _colorScheme.onSurface,
-        );
+    return disabledTextStyle == null
+        ? TextStyle(
+            color: _colorScheme.onSurface,
+          )
+        :  TextStyle(color: _colorScheme.onSurface).merge(disabledTextStyle);
   }
 
   TextStyle getSelectedTextStyle(BuildContext context) {
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
-    return selectedTextStyle ??
-        TextStyle(
-          color: _colorScheme.onPrimary,
-        );
+    return selectedTextStyle == null
+        ? TextStyle(
+            color: _colorScheme.onPrimary,
+          )
+        : TextStyle(color: _colorScheme.onPrimary).merge(selectedTextStyle);
   }
 }
 

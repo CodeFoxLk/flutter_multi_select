@@ -12,7 +12,7 @@ class SimpleMultiSelectCard<T> {
   final Widget? child;
   final EdgeInsetsGeometry? contentPadding;
   final EdgeInsetsGeometry? margin;
-  final Clip? clipBehavior;
+  final Clip clipBehavior;
   final MultiSelectPrefix? prefix;
   final MultiSelectSuffix? suffix;
   final bool enabled;
@@ -27,7 +27,7 @@ class SimpleMultiSelectCard<T> {
       this.label,
       this.child,
       this.margin,
-      this.clipBehavior = Clip.none,
+      this.clipBehavior = Clip.hardEdge,
       this.prefix,
       this.suffix,
       this.alignment, 
@@ -37,7 +37,7 @@ class SimpleMultiSelectCard<T> {
       this.contentPadding}) {
     if (child == null && label == null) {
       throw FlutterError(
-          'The child or label must be provided \n ex - MultiSelectValue(label : "This is the label")');
+          'The child or label must be provided \n ex - SimpleMultiSelectCard(label: "Dart")');
     }
   }
 }
