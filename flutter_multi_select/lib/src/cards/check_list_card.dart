@@ -21,6 +21,7 @@ class CheckListCard<T> {
   final Color? selectedColor;
   final Color? checkColor;
   final OutlinedBorder? shape;
+  final BorderSide? checkBoxBorderSide;
 
   CheckListCard({
     required this.value,
@@ -40,5 +41,6 @@ class CheckListCard<T> {
     this.selectedColor,
     this.checkColor,
     this.shape,
+    this.checkBoxBorderSide,
   });
 }

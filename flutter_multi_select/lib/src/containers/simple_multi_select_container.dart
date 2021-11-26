@@ -20,6 +20,7 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     this.maxSelectingCount,
     this.isMaxSelectingCountWithFreezedSelects = false,
     this.onMaximumSelected,
+    this.itemsPadding,
     this.itemsDecoration = const SimplecardinitialDecoration(),
     this.textStyles = const MultiSelectTextStyles(),
     this.prefix,
@@ -34,6 +35,7 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
 
   final List<SimpleMultiSelectCard<T>> items;
   final int? maxSelectingCount;
+  final EdgeInsetsGeometry? itemsPadding;
   final bool isMaxSelectingCountWithFreezedSelects;
   final MultiSelectDecorations itemsDecoration;
   final MultiSelectTextStyles textStyles;
@@ -76,7 +78,8 @@ class _SimpleMultiSelectContainerState<T>
   void didUpdateWidget(SimpleMultiSelectContainer<T> oldWidget) {
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
-      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
+      widget.controller!.getSelectedItems =
+          oldWidget.controller!.getSelectedItems;
       widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
@@ -93,9 +96,11 @@ class _SimpleMultiSelectContainerState<T>
     setState(() {});
   }
 
-  void _selectAll(){
-    _selectedItems.addAll(_items);
+  List<T> _selectAll() {
+    _selectedItems.clear();
+    _selectedItems.addAll(_items.where((i) => i.enabled).toList());
     setState(() {});
+    return _getValues();
   }
 
   void addInitiallySelectedItemsToSelectedList() {
@@ -104,6 +109,7 @@ class _SimpleMultiSelectContainerState<T>
     _selectedItems.addAll(initiallySelected);
     _freezeSelectedItemsCount =
         _items.where((item) => item.freezeInSelected).length;
+    setState(() {});
   }
 
   void _onChange(SimpleMultiSelectCard<T> item) {
@@ -253,9 +259,11 @@ class _SimpleMultiSelectContainerState<T>
                   },
             child: Container(
               alignment: item.alignment,
-              padding: item.child == null && item.contentPadding == null
+              padding: (item.child == null &&
+                      item.contentPadding == null &&
+                      widget.itemsPadding == null)
                   ? kCardPadding
-                  : item.contentPadding,
+                  : item.contentPadding ?? widget.itemsPadding,
               margin: item.margin ?? kCardMargin,
               child: Row(
                 mainAxisSize: widget.alignments.mainAxisSize,
@@ -292,7 +300,8 @@ class _SimpleMultiSelectContainerState<T>
                   AnimatedDefaultTextStyle(
                     duration: widget.animations.labelAimationDuration,
                     curve: widget.animations.labeAnimationlCurve,
-                    style: getTextStyle(item.textStyles, widget.textStyles, isSelected, item.enabled, context),
+                    style: getTextStyle(item.textStyles, widget.textStyles,
+                        isSelected, item.enabled, context),
                     child: item.child ??
                         Text(
                           item.label!,

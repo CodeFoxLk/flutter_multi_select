@@ -12,7 +12,7 @@ class MultiSelectCheckList<T> extends StatefulWidget {
   const MultiSelectCheckList({
     Key? key,
     required this.items,
-    this.padding = kCheckListPadding,
+    this.itemPadding = kCheckListPadding,
     this.maxSelectingCount,
     this.isMaxSelectingCountWithFreezedSelects = false,
     this.itemsDecoration = const CheckListViewinitialDecoration(),
@@ -21,19 +21,18 @@ class MultiSelectCheckList<T> extends StatefulWidget {
     this.listViewSettings = const ListViewSettings(),
     this.onMaximumSelected,
     required this.onChange,
-    this.checkBoxBorderSide,
     this.chechboxScaleFactor = 1,
     this.controller,
   }) : super(key: key);
   final List<CheckListCard<T>> items;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry itemPadding;
   final int? maxSelectingCount;
   final bool isMaxSelectingCountWithFreezedSelects;
   final MultiSelectDecorations itemsDecoration;
   final MultiSelectTextStyles textStyles;
   final ListViewSettings listViewSettings;
   final MultiSelectSimpleAnimations animations;
-  final BorderSide? checkBoxBorderSide;
+
   final double chechboxScaleFactor;
   final MultiSelectController<T>? controller;
 
@@ -61,7 +60,8 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   void didUpdateWidget(MultiSelectCheckList<T> oldWidget) {
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
-      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
+      widget.controller!.getSelectedItems =
+          oldWidget.controller!.getSelectedItems;
       widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
@@ -77,6 +77,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     _selectedItems.addAll(initiallySelected);
     _freezeSelectedItemsCount =
         _items.where((item) => item.freezeInSelected).length;
+    setState(() {});
   }
 
   void _deSelectAll() {
@@ -90,9 +91,11 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     setState(() {});
   }
 
-  void _selectAll(){
-    _selectedItems.addAll(_items);
+  List<T> _selectAll() {
+    _selectedItems.clear();
+    _selectedItems.addAll(_items.where((i) => i.enabled).toList());
     setState(() {});
+    return _getValues();
   }
 
   void _onChange(CheckListCard<T> item) {
@@ -203,7 +206,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
                   : MaterialStateProperty.all(_item.enabledColor),
               shape: _item.shape,
               value: isSelected,
-              side: widget.checkBoxBorderSide,
+              side: _item.checkBoxBorderSide,
               onChanged: !_item.enabled ? null : (v) {},
             ),
           ),
@@ -226,7 +229,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
                       _onChange(_item);
                     },
               child: Padding(
-                padding: widget.padding,
+                padding: widget.itemPadding,
                 child: Row(
                   children: [
                     Visibility(visible: _item.leadingCheckBox, child: checkbox),

@@ -87,10 +87,13 @@ class _AdvanceMultiSelectContainerState<T>
     setState(() {});
   }
 
-  void _selectAll(){
-    _selectedItems.addAll(_items);
+  List<T> _selectAll() {
+    _selectedItems.clear();
+  //  _selectedItems.addAll(_items.where((i) => i.enabled).toList());
     setState(() {});
+    return _getValues();
   }
+
 
 
   List<T> _getValues() {
