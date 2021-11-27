@@ -8,7 +8,7 @@ class CommonDecorationExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleMultiSelectContainer(
+    return MultiSelectContainer(
         prefix: MultiSelectPrefix(
           selectedPrefix: const Padding(
             padding: EdgeInsets.only(right: 5),
@@ -21,11 +21,17 @@ class CommonDecorationExample extends StatelessWidget {
         ),
         itemsDecoration: MultiSelectDecorations(
           decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              gradient: LinearGradient(colors: [
+                Colors.green.withOpacity(0.1),
+                Colors.yellow.withOpacity(0.1),
+              ]),
               border: Border.all(color: Colors.green[200]!),
               borderRadius: BorderRadius.circular(20)),
           selectedDecoration: BoxDecoration(
-              color: Colors.green[400],
+              gradient: const LinearGradient(colors: [
+                Colors.green,
+                Colors.lightGreen
+              ]),
               border: Border.all(color: Colors.green[700]!),
               borderRadius: BorderRadius.circular(5)),
           disabledDecoration: BoxDecoration(
@@ -34,15 +40,15 @@ class CommonDecorationExample extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
         ),
         items: [
-          SimpleMultiSelectCard(value: 'Dart', label: 'Dart'),
-          SimpleMultiSelectCard(value: 'Python', label: 'Python'),
-          SimpleMultiSelectCard(
+          MultiSelectCard(value: 'Dart', label: 'Dart'),
+          MultiSelectCard(value: 'Python', label: 'Python'),
+          MultiSelectCard(
             value: 'JavaScript',
             label: 'JavaScript',
           ),
-          SimpleMultiSelectCard(value: 'Java', label: 'Java'),
-          SimpleMultiSelectCard(value: 'C#', label: 'C#'),
-          SimpleMultiSelectCard(value: 'C++', label: 'C++'),
+          MultiSelectCard(value: 'Java', label: 'Java'),
+          MultiSelectCard(value: 'C#', label: 'C#'),
+          MultiSelectCard(value: 'C++', label: 'C++'),
         ],
         onChange: (allSelectedItems, selectedItem) {});
   }

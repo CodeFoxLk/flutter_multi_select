@@ -4,7 +4,7 @@ import '../models/multiselect_suffix.dart';
 import '../models/multiselect_text_styles.dart';
 import '../models/decorations.dart';
 
-class SimpleMultiSelectCard<T> {
+class MultiSelectCard<T> {
   final T value;
   final MultiSelectItemDecorations decorations;
   final MultiSelectItemTextStyles textStyles;
@@ -19,8 +19,11 @@ class SimpleMultiSelectCard<T> {
   final Alignment? alignment;
   bool selected;
   final bool freezeInSelected;
+  final Color? splashColor;
+  final Color? highlightColor;
+  final double? labelGap;
 
-  SimpleMultiSelectCard( 
+  MultiSelectCard(  
       {required this.value,
       this.decorations = const MultiSelectItemDecorations(),
       this.textStyles = const MultiSelectItemTextStyles(),
@@ -34,6 +37,9 @@ class SimpleMultiSelectCard<T> {
       this.freezeInSelected = false,
       this.selected = false,
       this.enabled = true,
+      this.splashColor,
+      this.highlightColor,
+      this.labelGap, 
       this.contentPadding}) {
     if (child == null && label == null) {
       throw FlutterError(

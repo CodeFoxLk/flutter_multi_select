@@ -12,8 +12,8 @@ import '../models/multiselect_suffix.dart';
 import '../models/multiselect_wrap_settings.dart';
 import '../cards/simple_multiselect_card.dart';
 
-class SimpleMultiSelectContainer<T> extends StatefulWidget {
-  const SimpleMultiSelectContainer({
+class MultiSelectContainer<T> extends StatefulWidget {
+  const MultiSelectContainer({
     Key? key,
     required this.items,
     required this.onChange,
@@ -30,10 +30,13 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
     this.showInListView = false,
     this.animations = const MultiSelectSimpleAnimations(),
     this.alignments = const MultiSelectSimpleAlignments(),
+    this.splashColor,
+    this.highlightColor,
     this.controller,
+    
   }) : super(key: key);
 
-  final List<SimpleMultiSelectCard<T>> items;
+  final List<MultiSelectCard<T>> items;
   final int? maxSelectingCount;
   final EdgeInsetsGeometry? itemsPadding;
   final bool isMaxSelectingCountWithFreezedSelects;
@@ -47,6 +50,8 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
   final ListViewSettings listViewSettings;
   final bool showInListView;
   final MultiSelectController<T>? controller;
+  final Color? splashColor;
+  final Color? highlightColor;
 
   final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
   final void Function(List<T> selectedItems, T selectedItem) onChange;
@@ -57,7 +62,7 @@ class SimpleMultiSelectContainer<T> extends StatefulWidget {
 }
 
 class _SimpleMultiSelectContainerState<T>
-    extends State<SimpleMultiSelectContainer<T>> {
+    extends State<MultiSelectContainer<T>> {
   @override
   void initState() {
     _items = widget.items;
@@ -70,12 +75,12 @@ class _SimpleMultiSelectContainerState<T>
     super.initState();
   }
 
-  late final List<SimpleMultiSelectCard<T>> _items;
-  final _selectedItems = <SimpleMultiSelectCard<T>>[];
+  late final List<MultiSelectCard<T>> _items;
+  final _selectedItems = <MultiSelectCard<T>>[];
   int _freezeSelectedItemsCount = 0;
 
   @override
-  void didUpdateWidget(SimpleMultiSelectContainer<T> oldWidget) {
+  void didUpdateWidget(MultiSelectContainer<T> oldWidget) {
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
       widget.controller!.getSelectedItems =
@@ -112,7 +117,7 @@ class _SimpleMultiSelectContainerState<T>
     setState(() {});
   }
 
-  void _onChange(SimpleMultiSelectCard<T> item) {
+  void _onChange(MultiSelectCard<T> item) {
     if (!item.freezeInSelected) {
       if (_selectedItems.contains(item)) {
         _selectedItems.remove(item);
@@ -152,12 +157,12 @@ class _SimpleMultiSelectContainerState<T>
     return valuesOfSelected;
   }
 
-  MultiSelectPrefix? _getPrefix(SimpleMultiSelectCard<T> item) {
+  MultiSelectPrefix? _getPrefix(MultiSelectCard<T> item) {
     final MultiSelectPrefix? prefix = item.prefix ?? widget.prefix;
     return prefix;
   }
 
-  MultiSelectSuffix? _getSuffix(SimpleMultiSelectCard<T> item) {
+  MultiSelectSuffix? _getSuffix(MultiSelectCard<T> item) {
     final MultiSelectSuffix? suffix = item.suffix ?? widget.suffix;
     return suffix;
   }
@@ -235,7 +240,7 @@ class _SimpleMultiSelectContainerState<T>
           );
   }
 
-  Widget getItem(SimpleMultiSelectCard<T> item) {
+  Widget getItem(MultiSelectCard<T> item) {
     final bool isSelected = _selectedItems.contains(item);
     final _prefix = _getPrefix(item);
     final _suffix = _getSuffix(item);
@@ -252,6 +257,8 @@ class _SimpleMultiSelectContainerState<T>
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
+            splashColor: item.splashColor ?? widget.splashColor,
+            highlightColor: item.highlightColor ?? widget.highlightColor,
             onTap: item.enabled == false
                 ? null
                 : () {
@@ -272,31 +279,34 @@ class _SimpleMultiSelectContainerState<T>
                 children: [
                   _prefix == null
                       ? const SizedBox()
-                      : !item.enabled
-                          ? SizedBox(
-                              key: ValueKey(item.value),
-                              child: _prefix.disabledPrefix ??
-                                  _prefix.enabledPrefix,
-                            )
-                          : AnimatedSwitcher(
-                              duration:
-                                  widget.animations.prefixAimationDuration,
-                              switchInCurve:
-                                  widget.animations.prefixAnimationCurve,
-                              switchOutCurve:
-                                  widget.animations.prefixAnimationCurve,
-                              layoutBuilder: (Widget? currentChild,
-                                  List<Widget> previousChildren) {
-                                return currentChild!;
-                              },
-                              child: isSelected
-                                  ? SizedBox(
-                                      key: ValueKey(item.value),
-                                      child: _prefix.selectedPrefix ??
-                                          _prefix.enabledPrefix,
-                                    )
-                                  : SizedBox(child: _prefix.enabledPrefix),
-                            ),
+                      : Padding(
+                        padding : EdgeInsets.only(right: item.labelGap ?? 4),
+                        child: !item.enabled
+                            ? SizedBox(
+                                key: ValueKey(item.value),
+                                child: _prefix.disabledPrefix ??
+                                    _prefix.enabledPrefix,
+                              )
+                            : AnimatedSwitcher(
+                                duration:
+                                    widget.animations.prefixAimationDuration,
+                                switchInCurve:
+                                    widget.animations.prefixAnimationCurve,
+                                switchOutCurve:
+                                    widget.animations.prefixAnimationCurve,
+                                layoutBuilder: (Widget? currentChild,
+                                    List<Widget> previousChildren) {
+                                  return currentChild!;
+                                },
+                                child: isSelected
+                                    ? SizedBox(
+                                        key: ValueKey(item.value),
+                                        child: _prefix.selectedPrefix ??
+                                            _prefix.enabledPrefix,
+                                      )
+                                    : SizedBox(child: _prefix.enabledPrefix),
+                              ),
+                      ),
                   AnimatedDefaultTextStyle(
                     duration: widget.animations.labelAimationDuration,
                     curve: widget.animations.labeAnimationlCurve,
@@ -309,31 +319,34 @@ class _SimpleMultiSelectContainerState<T>
                   ),
                   _suffix == null
                       ? const SizedBox()
-                      : !item.enabled
-                          ? SizedBox(
-                              key: ValueKey(item.value),
-                              child: _suffix.disabledSuffix ??
-                                  _suffix.enabledSuffix,
-                            )
-                          : AnimatedSwitcher(
-                              duration:
-                                  widget.animations.suffixAimationDuration,
-                              switchInCurve:
-                                  widget.animations.suffixAnimationCurve,
-                              switchOutCurve:
-                                  widget.animations.suffixAnimationCurve,
-                              layoutBuilder: (Widget? currentChild,
-                                  List<Widget> previousChildren) {
-                                return currentChild!;
-                              },
-                              child: isSelected
-                                  ? SizedBox(
-                                      key: ValueKey(item.value),
-                                      child: _suffix.selectedSuffix ??
-                                          _suffix.enabledSuffix,
-                                    )
-                                  : SizedBox(child: _suffix.enabledSuffix),
-                            ),
+                      : Padding(
+                        padding:  EdgeInsets.only(left: item.labelGap ?? 4),
+                        child: !item.enabled
+                            ? SizedBox(
+                                key: ValueKey(item.value),
+                                child: _suffix.disabledSuffix ??
+                                    _suffix.enabledSuffix,
+                              )
+                            : AnimatedSwitcher(
+                                duration:
+                                    widget.animations.suffixAimationDuration,
+                                switchInCurve:
+                                    widget.animations.suffixAnimationCurve,
+                                switchOutCurve:
+                                    widget.animations.suffixAnimationCurve,
+                                layoutBuilder: (Widget? currentChild,
+                                    List<Widget> previousChildren) {
+                                  return currentChild!;
+                                },
+                                child: isSelected
+                                    ? SizedBox(
+                                        key: ValueKey(item.value),
+                                        child: _suffix.selectedSuffix ??
+                                            _suffix.enabledSuffix,
+                                      )
+                                    : SizedBox(child: _suffix.enabledSuffix),
+                              ),
+                      ),
                 ],
               ),
             ),

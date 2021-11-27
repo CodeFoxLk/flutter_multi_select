@@ -9,9 +9,9 @@ export 'src/models/multiselect_list_settings.dart';
 export 'src/models/animations.dart';
 export 'src/models/alignments.dart';
 
-export 'src/containers/simple_multi_select_container.dart';
+export 'src/containers/multi_select_container.dart';
 export 'src/containers/multi_select_check_list.dart';
-export 'src/containers/advanced_multiselect_container.dart';
+// export 'src/containers/advanced_multiselect_container.dart';
 
 export 'src/cards/multi_select_card.dart';
 export 'src/cards/simple_multiselect_card.dart';

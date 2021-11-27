@@ -1,18 +1,19 @@
 
 import 'package:example/themedata/textstyles.dart';
-import 'package:example/widgets/multiselect_widgets/examples.dart';
+import 'package:example/widgets/examples.dart';
 import 'package:flutter/material.dart';
 
 class SimpleMultiSelectSceen extends StatelessWidget {
-  SimpleMultiSelectSceen({Key? key}) : super(key: key);
+  const SimpleMultiSelectSceen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var divider = const Divider(
+    const divider = Divider(
       height: 40,
     );
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Simple Examples'),
       ),
       body: SafeArea(
@@ -113,6 +114,15 @@ class SimpleMultiSelectSceen extends StatelessWidget {
                 height: 10,
               ),
               const WrapperSettingsExample(),
+              divider,
+              const Text(
+                'Any widget',
+                style: titleTS,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const AnyWidgetExample(),
             ],
           ),
         ),

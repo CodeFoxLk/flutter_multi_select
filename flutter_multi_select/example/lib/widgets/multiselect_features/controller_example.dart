@@ -44,19 +44,19 @@ class ControllerExample extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        SimpleMultiSelectContainer(
+        MultiSelectContainer(
             controller: _controller,
             items: [
-              SimpleMultiSelectCard(value: 'Dart', label: 'Dart'),
-              SimpleMultiSelectCard(value: 'Python', label: 'Python'),
-              SimpleMultiSelectCard(
+              MultiSelectCard(value: 'Dart', label: 'Dart'),
+              MultiSelectCard(value: 'Python', label: 'Python'),
+              MultiSelectCard(
                 value: 'JavaScript',
                 label: 'JavaScript',
               ),
-              SimpleMultiSelectCard(value: 'Java', label: 'Java'),
-              SimpleMultiSelectCard(value: 'Go Lang', label: 'Go Lang'),
-              SimpleMultiSelectCard(value: 'Swift', label: 'Swift'),
-              SimpleMultiSelectCard(value: 'Kotlin', label: 'Kotlin')
+              MultiSelectCard(value: 'Java', label: 'Java'),
+              MultiSelectCard(value: 'Go Lang', label: 'Go Lang'),
+              MultiSelectCard(value: 'Swift', label: 'Swift'),
+              MultiSelectCard(value: 'Kotlin', label: 'Kotlin')
             ],
             onChange: (allSelectedItems, selectedItem) {})
       ],

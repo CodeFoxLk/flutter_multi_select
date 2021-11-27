@@ -8,41 +8,41 @@ class UniqueTextStylesExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleMultiSelectContainer(items: [
-      SimpleMultiSelectCard(
+    return MultiSelectContainer(items: [
+      MultiSelectCard(
         value: 'Dart',
         label: 'Dart',
         textStyles: const MultiSelectItemTextStyles(
             textStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.purple)),
       ),
-      SimpleMultiSelectCard(
+      MultiSelectCard(
         value: 'Python',
         label: 'Python',
         textStyles: const MultiSelectItemTextStyles(
             textStyle: TextStyle(color: Colors.lightBlue)),
       ),
-      SimpleMultiSelectCard(
+      MultiSelectCard(
         value: 'JavaScript',
         label: 'JavaScript',
         textStyles: const MultiSelectItemTextStyles(
             textStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.green)),
       ),
-      SimpleMultiSelectCard(
+      MultiSelectCard(
         value: 'Java',
         label: 'Java',
         textStyles: const MultiSelectItemTextStyles(
             textStyle: TextStyle(color: Colors.amber)),
       ),
-      SimpleMultiSelectCard(
+      MultiSelectCard(
         value: 'Go Lang',
         label: 'Go Lang',
         textStyles: const MultiSelectItemTextStyles(
             textStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.orange)),
       ),
-      SimpleMultiSelectCard(
+      MultiSelectCard(
         value: 'Swift',
         label: 'Swift',
         textStyles: const MultiSelectItemTextStyles(

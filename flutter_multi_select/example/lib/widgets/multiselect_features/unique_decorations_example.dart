@@ -8,7 +8,7 @@ class UniqueDecorationsExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleMultiSelectContainer(
+    return MultiSelectContainer(
         prefix: MultiSelectPrefix(
           selectedPrefix: const Padding(
             padding: EdgeInsets.only(right: 5),
@@ -20,7 +20,7 @@ class UniqueDecorationsExample extends StatelessWidget {
           ),
         ),
         items: [
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'Dart',
             label: 'Dart',
             decorations: MultiSelectItemDecorations(
@@ -32,7 +32,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'Python',
             label: 'Python',
             decorations: MultiSelectItemDecorations(
@@ -44,7 +44,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'JavaScript',
             label: 'JavaScript',
             decorations: MultiSelectItemDecorations(
@@ -56,7 +56,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'Java',
             label: 'Java',
             decorations: MultiSelectItemDecorations(
@@ -68,7 +68,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'C#',
             label: 'C#',
             decorations: MultiSelectItemDecorations(
@@ -80,7 +80,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'C++',
             label: 'C++',
             decorations: MultiSelectItemDecorations(
@@ -92,7 +92,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
           ),
-          SimpleMultiSelectCard(
+          MultiSelectCard(
             value: 'Kotlin',
             label: 'Kotlin',
             decorations: MultiSelectItemDecorations(

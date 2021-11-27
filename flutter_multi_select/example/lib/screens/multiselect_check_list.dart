@@ -14,6 +14,7 @@ class MultiSelectCheckListScreen extends StatelessWidget {
     final _items = CryptoModel.getCrypto();
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: const Text('Multi Select Check List'),
           actions: [
             ElevatedButton(

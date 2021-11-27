@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select/flutter_multi_select.dart';
 
-import 'screens/simple_sultiselecr_screen.dart';
+import 'screens/chips_example_designs_screen.dart';
+import 'screens/multiselect_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[200],
         primarySwatch: Colors.blue,
       ),
-      home: SimpleMultiSelectSceen(),
+      home: ChipExamples(),
     );
   }
 }
