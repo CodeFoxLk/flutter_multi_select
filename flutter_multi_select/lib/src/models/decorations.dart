@@ -12,8 +12,7 @@ class MultiSelectItemDecorations {
   /// The decoration to paint child when disabled.
   final Decoration? disabledDecoration;
 
-  const MultiSelectItemDecorations(
-      {this.decoration, this.selectedDecoration, this.disabledDecoration});
+  const MultiSelectItemDecorations({this.decoration, this.selectedDecoration, this.disabledDecoration});
 }
 
 ///common Decoration styles for the multiselect container
@@ -27,13 +26,13 @@ class MultiSelectDecorations {
   /// The decoration to paint child when disabled.
   final Decoration? disabledDecoration;
 
-  const MultiSelectDecorations(
-      {this.decoration, this.selectedDecoration, this.disabledDecoration});
+  const MultiSelectDecorations({this.decoration, this.selectedDecoration, this.disabledDecoration});
 
   BorderRadius _getBorderRadius() {
     return BorderRadius.circular(kCardrBorderRadius);
   }
 
+  /// Enabled card decoration
   Decoration getDecoration(BuildContext context) {
     return decoration ??
         BoxDecoration(
@@ -41,7 +40,8 @@ class MultiSelectDecorations {
           borderRadius: _getBorderRadius(),
         );
   }
-
+ 
+  /// Selected card decoration
   Decoration getSelectedDecoration(BuildContext context) {
     // ChipThemeData  _chipData = Theme.of(context).chipTheme;
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
@@ -52,6 +52,7 @@ class MultiSelectDecorations {
             borderRadius: _getBorderRadius());
   }
 
+ /// Deselected card decoration
   Decoration getDisabledDecoration(BuildContext context) {
     return disabledDecoration ??
         BoxDecoration(
@@ -62,8 +63,9 @@ class MultiSelectDecorations {
 }
 
 
-class SimplecardinitialDecoration extends MultiSelectDecorations {
-  const SimplecardinitialDecoration();
+/// Default card decoration
+class MultiSelectCardinitialDecoration extends MultiSelectDecorations {
+  const MultiSelectCardinitialDecoration();
 
   @override
   Decoration getDecoration(BuildContext context) {
@@ -96,6 +98,7 @@ class SimplecardinitialDecoration extends MultiSelectDecorations {
   }
 }
 
+/// Default check list card decoration
 class CheckListViewinitialDecoration extends MultiSelectDecorations {
   const CheckListViewinitialDecoration() : super();
 

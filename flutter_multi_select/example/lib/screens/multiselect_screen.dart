@@ -94,7 +94,7 @@ class SimpleMultiSelectSceen extends StatelessWidget {
                 'Status',
                 style: titleTS,
               ),
-              const Text('Enabled / Disabled / Selected / Freezed in Selected'),
+              const Text('Enabled / Disabled / Selected / perpetual Selected'),
               const SizedBox(
                 height: 10,
               ),

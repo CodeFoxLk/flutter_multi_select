@@ -14,7 +14,7 @@ export 'src/containers/multi_select_check_list.dart';
 // export 'src/containers/advanced_multiselect_container.dart';
 
 export 'src/cards/multi_select_card.dart';
-export 'src/cards/simple_multiselect_card.dart';
+export 'src/cards/multiselect_card.dart';
 export 'src/cards/check_list_card.dart';
 
 export 'src/controller/multiselect_controller.dart';

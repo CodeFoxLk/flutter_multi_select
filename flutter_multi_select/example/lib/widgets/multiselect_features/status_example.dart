@@ -16,7 +16,7 @@ class StatusExample extends StatelessWidget {
       MultiSelectCard(
           value: 'JavaScript',
           label: 'JavaScript',
-          freezeInSelected: true),
+          perpetualSelected: true),
       MultiSelectCard(value: 'Java', label: 'Java'),
       MultiSelectCard(value: 'C#', label: 'C#'),
       MultiSelectCard(value: 'C++', label: 'C++'),

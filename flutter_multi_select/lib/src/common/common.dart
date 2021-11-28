@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_select/flutter_multi_select.dart';
 import '../models/multiselect_text_styles.dart';
 
+///get text style
 TextStyle getTextStyle(
     MultiSelectItemTextStyles itemTextStyles,
     MultiSelectTextStyles commonTextStyles,

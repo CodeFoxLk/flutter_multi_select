@@ -1,3 +1,5 @@
+import 'package:example/screens/check_list_example_designs.dart';
+import 'package:example/screens/multiselect_check_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select/flutter_multi_select.dart';
 
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey[200],
         primarySwatch: Colors.blue,
       ),
-      home: ChipExamples(),
+      home: SimpleMultiSelectSceen(),
     );
   }
 }

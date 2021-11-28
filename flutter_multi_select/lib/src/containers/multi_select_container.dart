@@ -10,50 +10,68 @@ import '../models/multiselect_list_settings.dart';
 import '../models/multiselect_prefix.dart';
 import '../models/multiselect_suffix.dart';
 import '../models/multiselect_wrap_settings.dart';
-import '../cards/simple_multiselect_card.dart';
+import '../cards/multiselect_card.dart';
 
+///Container for multi MultiSelectCard.
 class MultiSelectContainer<T> extends StatefulWidget {
   const MultiSelectContainer({
     Key? key,
     required this.items,
     required this.onChange,
-    this.maxSelectingCount,
-    this.isMaxSelectingCountWithFreezedSelects = false,
+    this.maxSelectableCount,
+    this.isMaxSelectableWithPerpetualSelects = false,
     this.onMaximumSelected,
     this.itemsPadding,
-    this.itemsDecoration = const SimplecardinitialDecoration(),
+    this.itemsDecoration = const MultiSelectCardinitialDecoration(),
     this.textStyles = const MultiSelectTextStyles(),
     this.prefix,
     this.suffix,
     this.wrapSettings = const WrapSettings(),
     this.listViewSettings = const ListViewSettings(),
     this.showInListView = false,
-    this.animations = const MultiSelectSimpleAnimations(),
-    this.alignments = const MultiSelectSimpleAlignments(),
+    this.animations = const MultiSelectAnimations(),
+    this.alignments = const MultiSelectAlignments(),
     this.splashColor,
     this.highlightColor,
     this.controller,
     
   }) : super(key: key);
 
+  /// [MultiSelectCard] List for the multi select container. 
   final List<MultiSelectCard<T>> items;
-  final int? maxSelectingCount;
+  /// Maximum selectable count.
+  final int? maxSelectableCount;
+  /// MultiSelectCard Item padding.
   final EdgeInsetsGeometry? itemsPadding;
-  final bool isMaxSelectingCountWithFreezedSelects;
+  /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
+  final bool isMaxSelectableWithPerpetualSelects;
+  /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
+  /// Common text styles for all items.
   final MultiSelectTextStyles textStyles;
-  final MultiSelectSimpleAnimations animations;
-  final MultiSelectSimpleAlignments alignments;
+  /// Animation settings
+  final MultiSelectAnimations animations;
+  /// [Row] alignment settings for inside of Multi Select Item card.
+  final MultiSelectAlignments alignments;
+  /// Common optional widget to place on the line before in every Multi Select Item.
   final MultiSelectPrefix? prefix;
+  /// Common optional widget to place on the line after in every Multi Select Item.
   final MultiSelectSuffix? suffix;
+  /// Default all items are in a [Wrap]. so these are the settings for [Wrap].
   final WrapSettings wrapSettings;
+  /// List view settings for if [showInListView] = true.
   final ListViewSettings listViewSettings;
+  /// if -> true, Show all multiselect items in a list view.
   final bool showInListView;
+  /// A Controller for multi select. Allows to get all selected items, de select all, select all.
   final MultiSelectController<T>? controller;
+  /// A Common splash color for all.
   final Color? splashColor;
+  /// A Common highlight color for all.
   final Color? highlightColor;
-
+  /// Call when reached to the maximum selectable count.
   final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
+  /// Call when item is selected.
   final void Function(List<T> selectedItems, T selectedItem) onChange;
 
   @override
@@ -61,12 +79,11 @@ class MultiSelectContainer<T> extends StatefulWidget {
       _SimpleMultiSelectContainerState<T>();
 }
 
-class _SimpleMultiSelectContainerState<T>
-    extends State<MultiSelectContainer<T>> {
+class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>> {
   @override
   void initState() {
     _items = widget.items;
-    addInitiallySelectedItemsToSelectedList();
+    _addInitiallySelectedItemsToSelectedList();
     if (widget.controller != null) {
       widget.controller!.deselectAll = _deSelectAll;
       widget.controller!.getSelectedItems = _getValues;
@@ -77,7 +94,7 @@ class _SimpleMultiSelectContainerState<T>
 
   late final List<MultiSelectCard<T>> _items;
   final _selectedItems = <MultiSelectCard<T>>[];
-  int _freezeSelectedItemsCount = 0;
+  int _perpetualSelectedItemsCount = 0;
 
   @override
   void didUpdateWidget(MultiSelectContainer<T> oldWidget) {
@@ -90,17 +107,19 @@ class _SimpleMultiSelectContainerState<T>
     super.didUpdateWidget(oldWidget);
   }
 
+  // Deselect all selected items excluding Perpetual Selected Items
   void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
 
-      return widget.controller!.deselectFreezedItems
+      return widget.controller!.deSelectPerpetualSelectedItems
           ? true
-          : !item.freezeInSelected;
+          : !item.perpetualSelected;
     });
     setState(() {});
   }
 
+  //Select items excluding disabled Selected Items
   List<T> _selectAll() {
     _selectedItems.clear();
     _selectedItems.addAll(_items.where((i) => i.enabled).toList());
@@ -108,32 +127,30 @@ class _SimpleMultiSelectContainerState<T>
     return _getValues();
   }
 
-  void addInitiallySelectedItemsToSelectedList() {
+  //add initially selected items and find perpetual selected items count
+  void _addInitiallySelectedItemsToSelectedList() {
     final initiallySelected =
-        _items.where((item) => item.selected || item.freezeInSelected).toList();
+        _items.where((item) => item.selected || item.perpetualSelected).toList();
     _selectedItems.addAll(initiallySelected);
-    _freezeSelectedItemsCount =
-        _items.where((item) => item.freezeInSelected).length;
+    _perpetualSelectedItemsCount =
+        _items.where((item) => item.perpetualSelected).length;
     setState(() {});
   }
 
   void _onChange(MultiSelectCard<T> item) {
-    if (!item.freezeInSelected) {
-      if (_selectedItems.contains(item)) {
+    if (!item.perpetualSelected) {
+      if (_selectedItems.contains(item)) { // if already selected - deselect item
         _selectedItems.remove(item);
-        item.selected = false;
+        item.selected = false; // change item status
       } else {
         //
-        int? maxSelectingCount = widget.maxSelectingCount;
+        int? maxSelectableCount = widget.maxSelectableCount;
 
-        if (widget.isMaxSelectingCountWithFreezedSelects &&
-            _freezeSelectedItemsCount > 0) {
-          maxSelectingCount =
-              (maxSelectingCount ?? 0) + _freezeSelectedItemsCount;
+        if (widget.isMaxSelectableWithPerpetualSelects &&  _perpetualSelectedItemsCount > 0) {
+          maxSelectableCount =  (maxSelectableCount ?? 0) + _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
         }
         //
-        if (maxSelectingCount != null &&
-            maxSelectingCount <= _selectedItems.length) {
+        if (maxSelectableCount != null && maxSelectableCount <= _selectedItems.length) {
           final valuesOfSelected = _getValues();
           //
           if (widget.onMaximumSelected != null) {
@@ -152,28 +169,32 @@ class _SimpleMultiSelectContainerState<T>
     setState(() {});
   }
 
+  //get values of all selected items
   List<T> _getValues() {
     final valuesOfSelected = _selectedItems.map((si) => si.value).toList();
     return valuesOfSelected;
   }
 
+  //Get prefix widget. if a unique prefix for the particular is not available allows to common prefix widget MultiSelectContainer
   MultiSelectPrefix? _getPrefix(MultiSelectCard<T> item) {
     final MultiSelectPrefix? prefix = item.prefix ?? widget.prefix;
     return prefix;
   }
 
+  //Get suffix widget. if a unique suffix for the particular is not available allows to common suffix widget of MultiSelectContainer
   MultiSelectSuffix? _getSuffix(MultiSelectCard<T> item) {
     final MultiSelectSuffix? suffix = item.suffix ?? widget.suffix;
     return suffix;
   }
 
+ // find correct decoration
   Decoration getDecoration(
       MultiSelectItemDecorations itemDecoration,
       MultiSelectDecorations commonItemsDecoration,
       bool isSelected,
       bool enabled,
       BuildContext context) {
-    const simpleCardDecoration = SimplecardinitialDecoration();
+    const simpleCardDecoration = MultiSelectCardinitialDecoration();
 
     final decoration = !enabled
         ? itemDecoration.disabledDecoration ??

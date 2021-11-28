@@ -16,3 +16,5 @@ export 'chip_examples/oullinedchips.dart';
 export 'chip_examples/basic_chips.dart';
 export 'chip_examples/colorful_chips.dart';
 export 'chip_examples/icon_chip.dart';
+//checklist
+export 'check_list_examples/colorful_checklist.dart';

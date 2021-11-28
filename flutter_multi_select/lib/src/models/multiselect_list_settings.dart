@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// List view settings for if [showInListView] = true.
 class ListViewSettings {
   final Axis scrollDirection;
   final bool reverse;

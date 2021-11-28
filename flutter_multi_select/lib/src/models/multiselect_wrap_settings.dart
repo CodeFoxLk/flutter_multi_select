@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../const/const_values.dart';
 
+/// Default all items are in a [Wrap]. so these are the all settings for the [Wrap].
 class WrapSettings {
   final Axis direction;
   final WrapAlignment alignment;

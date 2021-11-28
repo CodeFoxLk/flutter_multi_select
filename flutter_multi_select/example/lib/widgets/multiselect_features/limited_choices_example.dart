@@ -10,7 +10,7 @@ class LimitedChoicesExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiSelectContainer(
-        maxSelectingCount: 5,
+        maxSelectableCount: 5,
         items: [
           MultiSelectCard(value: 'Dart', label: 'Dart'),
           MultiSelectCard(value: 'Python', label: 'Python'),

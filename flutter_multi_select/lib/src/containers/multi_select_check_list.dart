@@ -8,35 +8,47 @@ import '../models/decorations.dart';
 import '../models/multiselect_text_styles.dart';
 import '../cards/check_list_card.dart';
 
+///Container for multi select check list cards.
 class MultiSelectCheckList<T> extends StatefulWidget {
   const MultiSelectCheckList({
     Key? key,
     required this.items,
     this.itemPadding = kCheckListPadding,
-    this.maxSelectingCount,
-    this.isMaxSelectingCountWithFreezedSelects = false,
+    this.maxSelectableCount,
+    this.isMaxSelectableWithPerpetualSelects = false,
     this.itemsDecoration = const CheckListViewinitialDecoration(),
     this.textStyles = const CheckListViewInitialTS(),
-    this.animations = const MultiSelectSimpleAnimations(),
+    this.animations = const MultiSelectAnimations(),
     this.listViewSettings = const ListViewSettings(),
     this.onMaximumSelected,
     required this.onChange,
     this.chechboxScaleFactor = 1,
     this.controller,
   }) : super(key: key);
+
+  /// [CheckListCard] List for check list container.
   final List<CheckListCard<T>> items;
+  /// [CheckListCard] padding.
   final EdgeInsetsGeometry itemPadding;
-  final int? maxSelectingCount;
-  final bool isMaxSelectingCountWithFreezedSelects;
+  /// Maximum selectable count.
+  final int? maxSelectableCount;
+  /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
+  final bool isMaxSelectableWithPerpetualSelects;
+  /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
+  /// Common text styles for all items.
   final MultiSelectTextStyles textStyles;
+  /// All the settings for the list view.
   final ListViewSettings listViewSettings;
-  final MultiSelectSimpleAnimations animations;
-
+  /// Animation settings.
+  final MultiSelectAnimations animations;
+  /// Checkbox scale changing factor.
   final double chechboxScaleFactor;
+  ///  A Controller for multi select. Allows to get all selected items, de select all, select all.
   final MultiSelectController<T>? controller;
-
+  /// Call when reached to the maximum selectable count.
   final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
+  /// Call when item is selected.
   final void Function(List<T> selectedItems, T selectedItem) onChange;
 
   @override
@@ -47,7 +59,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   @override
   void initState() {
     _items = widget.items;
-    addInitiallySelectedItemsToSelectedList();
+    _addInitiallySelectedItemsToSelectedList();
     if (widget.controller != null) {
       widget.controller!.deselectAll = _deSelectAll;
       widget.controller!.getSelectedItems = _getValues;
@@ -69,28 +81,29 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
 
   late final List<CheckListCard<T>> _items;
   final _selectedItems = <CheckListCard<T>>[];
-  int _freezeSelectedItemsCount = 0;
+  int _perpetualSelectedItemsCount = 0;
 
-  void addInitiallySelectedItemsToSelectedList() {
-    final initiallySelected =
-        _items.where((item) => item.selected || item.freezeInSelected).toList();
+  // add initially selected items and find perpetual selected items count
+  void _addInitiallySelectedItemsToSelectedList() {
+    final initiallySelected = _items.where((item) => item.selected || item.perpetualSelected).toList();
     _selectedItems.addAll(initiallySelected);
-    _freezeSelectedItemsCount =
-        _items.where((item) => item.freezeInSelected).length;
+    _perpetualSelectedItemsCount =  _items.where((item) => item.perpetualSelected).length;
     setState(() {});
   }
 
+  // Deselect all selected items excluding Perpetual Selected Items
   void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
 
-      return widget.controller!.deselectFreezedItems
+      return widget.controller!.deSelectPerpetualSelectedItems
           ? true
-          : !item.freezeInSelected;
+          : !item.perpetualSelected;
     });
     setState(() {});
   }
 
+  //Select items excluding disabled Selected Items
   List<T> _selectAll() {
     _selectedItems.clear();
     _selectedItems.addAll(_items.where((i) => i.enabled).toList());
@@ -99,22 +112,19 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   }
 
   void _onChange(CheckListCard<T> item) {
-    if (!item.freezeInSelected) {
-      if (_selectedItems.contains(item)) {
+    if (!item.perpetualSelected) {
+      if (_selectedItems.contains(item)) { // if already selected - deselect item
         _selectedItems.remove(item);
-        item.selected = false;
+        item.selected = false; // change item status
       } else {
         //
-        int? maxSelectingCount = widget.maxSelectingCount;
+        int? maxSelectableCount = widget.maxSelectableCount;
 
-        if (widget.isMaxSelectingCountWithFreezedSelects &&
-            _freezeSelectedItemsCount > 0) {
-          maxSelectingCount =
-              (maxSelectingCount ?? 0) + _freezeSelectedItemsCount;
+        if (widget.isMaxSelectableWithPerpetualSelects && _perpetualSelectedItemsCount > 0) {
+          maxSelectableCount = (maxSelectableCount ?? 0) + _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
         }
         //
-        if (maxSelectingCount != null &&
-            maxSelectingCount <= _selectedItems.length) {
+        if (maxSelectableCount != null &&  maxSelectableCount <= _selectedItems.length) {
           final valuesOfSelected = _getValues();
           //
           if (widget.onMaximumSelected != null) {
@@ -135,11 +145,13 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     setState(() {});
   }
 
+  //get values of all selected items
   List<T> _getValues() {
     final valuesOfSelected = _selectedItems.map((si) => si.value).toList();
     return valuesOfSelected;
   }
 
+  // find correct decoration
   Decoration getDecoration(
       MultiSelectItemDecorations itemDecoration,
       MultiSelectDecorations commonItemsDecoration,
