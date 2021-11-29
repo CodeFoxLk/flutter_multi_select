@@ -2,8 +2,8 @@ import 'package:example/themedata/textstyles.dart';
 import 'package:example/widgets/examples.dart';
 import 'package:flutter/material.dart';
 
-class ChipExamples extends StatelessWidget {
-  const ChipExamples({Key? key}) : super(key: key);
+class ChipExamplesScreen extends StatelessWidget {
+  const ChipExamplesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
