@@ -64,7 +64,6 @@ class MultiSelectCheckListScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)))),
                 onChange: (allSelectedItems, selectedItem) {
-                  print(allSelectedItems.length);
                 },
                 onMaximumSelected: (allSelectedItems, selectedItem) {
                   CustomSnackBar.showInSnackBar('The limit has been reached', context);
