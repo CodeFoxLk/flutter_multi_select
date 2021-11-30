@@ -1,7 +1,7 @@
 
 
 
-<img src="https://i.ibb.co/WGXNKT0/all.png"  alt="flutter multi select" border="0">
+<img src="https://i.ibb.co/yqNs9Xf/all.png" alt="flutter multi select items" border="0">
 
 ------------
 
