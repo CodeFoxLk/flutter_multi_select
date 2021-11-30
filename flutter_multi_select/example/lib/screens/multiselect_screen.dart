@@ -1,4 +1,3 @@
-
 import 'package:example/themedata/textstyles.dart';
 import 'package:example/widgets/examples.dart';
 import 'package:flutter/material.dart';
@@ -130,22 +129,3 @@ class SimpleMultiSelectSceen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

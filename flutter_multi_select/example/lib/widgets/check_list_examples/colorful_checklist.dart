@@ -1,4 +1,3 @@
-
 import 'package:example/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select.dart';
@@ -16,8 +15,7 @@ class ColorfulCheckList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       
-       Expanded(
+        Expanded(
           child: MultiSelectCheckList<String>(
             textStyles: const MultiSelectTextStyles(
                 selectedTextStyle: TextStyle(

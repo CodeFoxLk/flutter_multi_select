@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomSnackBar{
+class CustomSnackBar {
   static void showInSnackBar(String value, BuildContext context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(

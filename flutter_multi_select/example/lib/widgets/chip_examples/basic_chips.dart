@@ -11,9 +11,9 @@ class BasicChipsExample extends StatelessWidget {
     return MultiSelectContainer(
         splashColor: Colors.blue.withOpacity(0.1),
         highlightColor: Colors.blue.withOpacity(0.1),
-        textStyles:const MultiSelectTextStyles(
-            selectedTextStyle: TextStyle(
-                fontWeight: FontWeight.w400, color: Colors.white)),
+        textStyles: const MultiSelectTextStyles(
+            selectedTextStyle:
+                TextStyle(fontWeight: FontWeight.w400, color: Colors.white)),
         itemsDecoration: MultiSelectDecorations(
           decoration: BoxDecoration(
               color: Colors.grey.withOpacity(0.2),

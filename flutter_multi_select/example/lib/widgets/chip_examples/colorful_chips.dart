@@ -12,13 +12,11 @@ class ColorFulChipExample extends StatelessWidget {
   Widget build(BuildContext context) {
     final _chipData = ChipData.getChips();
     return MultiSelectContainer(
-       wrapSettings: const WrapSettings(
-         runSpacing: 10
-       ),
+        wrapSettings: const WrapSettings(runSpacing: 10),
         items: List.generate(_chipData.length, (index) {
           final ChipData data = _chipData[index];
           return MultiSelectCard(
-            // clipBehavior: Clip.none,
+              // clipBehavior: Clip.none,
               value: data.value,
               label: data.label,
               splashColor: data.chipColor.withOpacity(0.1),
@@ -30,10 +28,9 @@ class ColorFulChipExample extends StatelessWidget {
                   selectedDecoration: BoxDecoration(
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color: data.chipColor.withOpacity(0.2),
-                          blurRadius: 2,
-                          spreadRadius: 4
-                        )
+                            color: data.chipColor.withOpacity(0.2),
+                            blurRadius: 2,
+                            spreadRadius: 4)
                       ],
                       color: data.chipColor,
                       borderRadius: BorderRadius.circular(20)),

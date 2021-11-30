@@ -44,7 +44,8 @@ class OutlinedChipsExample extends StatelessWidget {
         ),
         items: List.generate(
           _chipData.length,
-          (index) => MultiSelectCard(value: _chipData[index].value, label: _chipData[index].label),
+          (index) => MultiSelectCard(
+              value: _chipData[index].value, label: _chipData[index].label),
         ),
         onChange: (allSelectedItems, selectedItem) {});
   }

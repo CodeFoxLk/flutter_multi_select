@@ -6,9 +6,8 @@ class ControllerExample extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final MultiSelectController<String> _controller = MultiSelectController(
-    deSelectPerpetualSelectedItems: true
-  );
+  final MultiSelectController<String> _controller =
+      MultiSelectController(deSelectPerpetualSelectedItems: true);
 
   @override
   Widget build(BuildContext context) {

@@ -28,10 +28,8 @@ class PrefixExample extends StatelessWidget {
         items: [
           MultiSelectCard(value: 'Dart', label: 'Dart'),
           MultiSelectCard(value: 'Python', label: 'Python'),
-          MultiSelectCard(
-              value: 'JavaScript', label: 'JavaScript'),
-          MultiSelectCard(
-              value: 'Java', label: 'Java', enabled: false),
+          MultiSelectCard(value: 'JavaScript', label: 'JavaScript'),
+          MultiSelectCard(value: 'Java', label: 'Java', enabled: false),
           MultiSelectCard(value: 'C#', label: 'C#'),
         ],
         onChange: (allSelectedItems, selectedItem) {});

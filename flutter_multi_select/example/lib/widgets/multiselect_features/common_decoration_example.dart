@@ -28,10 +28,8 @@ class CommonDecorationExample extends StatelessWidget {
               border: Border.all(color: Colors.green[200]!),
               borderRadius: BorderRadius.circular(20)),
           selectedDecoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [
-                Colors.green,
-                Colors.lightGreen
-              ]),
+              gradient: const LinearGradient(
+                  colors: [Colors.green, Colors.lightGreen]),
               border: Border.all(color: Colors.green[700]!),
               borderRadius: BorderRadius.circular(5)),
           disabledDecoration: BoxDecoration(

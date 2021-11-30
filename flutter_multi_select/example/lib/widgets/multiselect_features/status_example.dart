@@ -9,14 +9,10 @@ class StatusExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiSelectContainer(items: [
+      MultiSelectCard(value: 'Dart', label: 'Dart', selected: true),
+      MultiSelectCard(value: 'Python', label: 'Python', enabled: false),
       MultiSelectCard(
-          value: 'Dart', label: 'Dart', selected: true),
-      MultiSelectCard(
-          value: 'Python', label: 'Python', enabled: false),
-      MultiSelectCard(
-          value: 'JavaScript',
-          label: 'JavaScript',
-          perpetualSelected: true),
+          value: 'JavaScript', label: 'JavaScript', perpetualSelected: true),
       MultiSelectCard(value: 'Java', label: 'Java'),
       MultiSelectCard(value: 'C#', label: 'C#'),
       MultiSelectCard(value: 'C++', label: 'C++'),
@@ -27,4 +23,3 @@ class StatusExample extends StatelessWidget {
     ], onChange: (allSelectedItems, selectedItem) {});
   }
 }
-

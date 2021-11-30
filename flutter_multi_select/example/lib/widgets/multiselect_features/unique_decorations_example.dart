@@ -28,8 +28,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.purple.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.purple, borderRadius: BorderRadius.circular(5)),
             ),
           ),
           MultiSelectCard(
@@ -52,8 +51,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.blue.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.blue, borderRadius: BorderRadius.circular(5)),
             ),
           ),
           MultiSelectCard(
@@ -64,8 +62,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.green.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.green, borderRadius: BorderRadius.circular(5)),
             ),
           ),
           MultiSelectCard(
@@ -76,8 +73,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.amber.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.amber, borderRadius: BorderRadius.circular(5)),
             ),
           ),
           MultiSelectCard(
@@ -88,8 +84,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.orange.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.orange, borderRadius: BorderRadius.circular(5)),
             ),
           ),
           MultiSelectCard(
@@ -100,8 +95,7 @@ class UniqueDecorationsExample extends StatelessWidget {
                   color: Colors.red.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20)),
               selectedDecoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(5)),
+                  color: Colors.red, borderRadius: BorderRadius.circular(5)),
             ),
           ),
         ],

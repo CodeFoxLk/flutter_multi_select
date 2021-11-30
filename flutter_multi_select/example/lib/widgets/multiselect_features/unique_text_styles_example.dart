@@ -13,8 +13,8 @@ class UniqueTextStylesExample extends StatelessWidget {
         value: 'Dart',
         label: 'Dart',
         textStyles: const MultiSelectItemTextStyles(
-            textStyle: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.purple)),
+            textStyle:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.purple)),
       ),
       MultiSelectCard(
         value: 'Python',
@@ -26,8 +26,8 @@ class UniqueTextStylesExample extends StatelessWidget {
         value: 'JavaScript',
         label: 'JavaScript',
         textStyles: const MultiSelectItemTextStyles(
-            textStyle: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.green)),
+            textStyle:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
       ),
       MultiSelectCard(
         value: 'Java',
@@ -39,8 +39,8 @@ class UniqueTextStylesExample extends StatelessWidget {
         value: 'Go Lang',
         label: 'Go Lang',
         textStyles: const MultiSelectItemTextStyles(
-            textStyle: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.orange)),
+            textStyle:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.orange)),
       ),
       MultiSelectCard(
         value: 'Swift',
