@@ -34,43 +34,59 @@ class MultiSelectContainer<T> extends StatefulWidget {
     this.splashColor,
     this.highlightColor,
     this.controller,
-    
   }) : super(key: key);
 
-  /// [MultiSelectCard] List for the multi select container. 
+  /// [MultiSelectCard] List for the multi select container.
   final List<MultiSelectCard<T>> items;
+
   /// Maximum selectable count.
   final int? maxSelectableCount;
+
   /// MultiSelectCard Item padding.
   final EdgeInsetsGeometry? itemsPadding;
+
   /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
   final bool isMaxSelectableWithPerpetualSelects;
+
   /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
+
   /// Common text styles for all items.
   final MultiSelectTextStyles textStyles;
+
   /// Animation settings
   final MultiSelectAnimations animations;
+
   /// [Row] alignment settings for inside of Multi Select Item card.
   final MultiSelectAlignments alignments;
+
   /// Common optional widget to place on the line before in every Multi Select Item.
   final MultiSelectPrefix? prefix;
+
   /// Common optional widget to place on the line after in every Multi Select Item.
   final MultiSelectSuffix? suffix;
+
   /// Default all items are in a [Wrap]. so these are the settings for [Wrap].
   final WrapSettings wrapSettings;
+
   /// List view settings for if [showInListView] = true.
   final ListViewSettings listViewSettings;
+
   /// if -> true, Show all multiselect items in a list view.
   final bool showInListView;
+
   /// A Controller for multi select. Allows to get all selected items, de select all, select all.
   final MultiSelectController<T>? controller;
+
   /// A Common splash color for all.
   final Color? splashColor;
+
   /// A Common highlight color for all.
   final Color? highlightColor;
+
   /// Call when reached to the maximum selectable count.
   final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
+
   /// Call when item is selected.
   final void Function(List<T> selectedItems, T selectedItem) onChange;
 
@@ -79,7 +95,8 @@ class MultiSelectContainer<T> extends StatefulWidget {
       _SimpleMultiSelectContainerState<T>();
 }
 
-class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>> {
+class _SimpleMultiSelectContainerState<T>
+    extends State<MultiSelectContainer<T>> {
   @override
   void initState() {
     _items = widget.items;
@@ -129,8 +146,9 @@ class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>>
 
   //add initially selected items and find perpetual selected items count
   void _addInitiallySelectedItemsToSelectedList() {
-    final initiallySelected =
-        _items.where((item) => item.selected || item.perpetualSelected).toList();
+    final initiallySelected = _items
+        .where((item) => item.selected || item.perpetualSelected)
+        .toList();
     _selectedItems.addAll(initiallySelected);
     _perpetualSelectedItemsCount =
         _items.where((item) => item.perpetualSelected).length;
@@ -139,18 +157,22 @@ class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>>
 
   void _onChange(MultiSelectCard<T> item) {
     if (!item.perpetualSelected) {
-      if (_selectedItems.contains(item)) { // if already selected - deselect item
+      if (_selectedItems.contains(item)) {
+        // if already selected - deselect item
         _selectedItems.remove(item);
         item.selected = false; // change item status
       } else {
         //
         int? maxSelectableCount = widget.maxSelectableCount;
 
-        if (widget.isMaxSelectableWithPerpetualSelects &&  _perpetualSelectedItemsCount > 0) {
-          maxSelectableCount =  (maxSelectableCount ?? 0) + _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
+        if (widget.isMaxSelectableWithPerpetualSelects &&
+            _perpetualSelectedItemsCount > 0) {
+          maxSelectableCount = (maxSelectableCount ?? 0) +
+              _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
         }
         //
-        if (maxSelectableCount != null && maxSelectableCount <= _selectedItems.length) {
+        if (maxSelectableCount != null &&
+            maxSelectableCount <= _selectedItems.length) {
           final valuesOfSelected = _getValues();
           //
           if (widget.onMaximumSelected != null) {
@@ -187,7 +209,7 @@ class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>>
     return suffix;
   }
 
- // find correct decoration
+  // find correct decoration
   Decoration getDecoration(
       MultiSelectItemDecorations itemDecoration,
       MultiSelectDecorations commonItemsDecoration,
@@ -301,33 +323,33 @@ class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>>
                   _prefix == null
                       ? const SizedBox()
                       : Padding(
-                        padding : EdgeInsets.only(right: item.labelGap ?? 4),
-                        child: !item.enabled
-                            ? SizedBox(
-                                key: ValueKey(item.value),
-                                child: _prefix.disabledPrefix ??
-                                    _prefix.enabledPrefix,
-                              )
-                            : AnimatedSwitcher(
-                                duration:
-                                    widget.animations.prefixAimationDuration,
-                                switchInCurve:
-                                    widget.animations.prefixAnimationCurve,
-                                switchOutCurve:
-                                    widget.animations.prefixAnimationCurve,
-                                layoutBuilder: (Widget? currentChild,
-                                    List<Widget> previousChildren) {
-                                  return currentChild!;
-                                },
-                                child: isSelected
-                                    ? SizedBox(
-                                        key: ValueKey(item.value),
-                                        child: _prefix.selectedPrefix ??
-                                            _prefix.enabledPrefix,
-                                      )
-                                    : SizedBox(child: _prefix.enabledPrefix),
-                              ),
-                      ),
+                          padding: EdgeInsets.only(right: item.labelGap ?? 4),
+                          child: !item.enabled
+                              ? SizedBox(
+                                  key: ValueKey(item.value),
+                                  child: _prefix.disabledPrefix ??
+                                      _prefix.enabledPrefix,
+                                )
+                              : AnimatedSwitcher(
+                                  duration:
+                                      widget.animations.prefixAimationDuration,
+                                  switchInCurve:
+                                      widget.animations.prefixAnimationCurve,
+                                  switchOutCurve:
+                                      widget.animations.prefixAnimationCurve,
+                                  layoutBuilder: (Widget? currentChild,
+                                      List<Widget> previousChildren) {
+                                    return currentChild!;
+                                  },
+                                  child: isSelected
+                                      ? SizedBox(
+                                          key: ValueKey(item.value),
+                                          child: _prefix.selectedPrefix ??
+                                              _prefix.enabledPrefix,
+                                        )
+                                      : SizedBox(child: _prefix.enabledPrefix),
+                                ),
+                        ),
                   AnimatedDefaultTextStyle(
                     duration: widget.animations.labelAimationDuration,
                     curve: widget.animations.labeAnimationlCurve,
@@ -341,33 +363,33 @@ class _SimpleMultiSelectContainerState<T> extends State<MultiSelectContainer<T>>
                   _suffix == null
                       ? const SizedBox()
                       : Padding(
-                        padding:  EdgeInsets.only(left: item.labelGap ?? 4),
-                        child: !item.enabled
-                            ? SizedBox(
-                                key: ValueKey(item.value),
-                                child: _suffix.disabledSuffix ??
-                                    _suffix.enabledSuffix,
-                              )
-                            : AnimatedSwitcher(
-                                duration:
-                                    widget.animations.suffixAimationDuration,
-                                switchInCurve:
-                                    widget.animations.suffixAnimationCurve,
-                                switchOutCurve:
-                                    widget.animations.suffixAnimationCurve,
-                                layoutBuilder: (Widget? currentChild,
-                                    List<Widget> previousChildren) {
-                                  return currentChild!;
-                                },
-                                child: isSelected
-                                    ? SizedBox(
-                                        key: ValueKey(item.value),
-                                        child: _suffix.selectedSuffix ??
-                                            _suffix.enabledSuffix,
-                                      )
-                                    : SizedBox(child: _suffix.enabledSuffix),
-                              ),
-                      ),
+                          padding: EdgeInsets.only(left: item.labelGap ?? 4),
+                          child: !item.enabled
+                              ? SizedBox(
+                                  key: ValueKey(item.value),
+                                  child: _suffix.disabledSuffix ??
+                                      _suffix.enabledSuffix,
+                                )
+                              : AnimatedSwitcher(
+                                  duration:
+                                      widget.animations.suffixAimationDuration,
+                                  switchInCurve:
+                                      widget.animations.suffixAnimationCurve,
+                                  switchOutCurve:
+                                      widget.animations.suffixAnimationCurve,
+                                  layoutBuilder: (Widget? currentChild,
+                                      List<Widget> previousChildren) {
+                                    return currentChild!;
+                                  },
+                                  child: isSelected
+                                      ? SizedBox(
+                                          key: ValueKey(item.value),
+                                          child: _suffix.selectedSuffix ??
+                                              _suffix.enabledSuffix,
+                                        )
+                                      : SizedBox(child: _suffix.enabledSuffix),
+                                ),
+                        ),
                 ],
               ),
             ),

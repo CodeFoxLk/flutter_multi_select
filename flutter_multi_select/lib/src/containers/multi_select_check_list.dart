@@ -28,26 +28,37 @@ class MultiSelectCheckList<T> extends StatefulWidget {
 
   /// [CheckListCard] List for check list container.
   final List<CheckListCard<T>> items;
+
   /// [CheckListCard] padding.
   final EdgeInsetsGeometry itemPadding;
+
   /// Maximum selectable count.
   final int? maxSelectableCount;
+
   /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
   final bool isMaxSelectableWithPerpetualSelects;
+
   /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
+
   /// Common text styles for all items.
   final MultiSelectTextStyles textStyles;
+
   /// All the settings for the list view.
   final ListViewSettings listViewSettings;
+
   /// Animation settings.
   final MultiSelectAnimations animations;
+
   /// Checkbox scale changing factor.
   final double chechboxScaleFactor;
+
   ///  A Controller for multi select. Allows to get all selected items, de select all, select all.
   final MultiSelectController<T>? controller;
+
   /// Call when reached to the maximum selectable count.
   final void Function(List<T> selectedItems, T selectedItem)? onMaximumSelected;
+
   /// Call when item is selected.
   final void Function(List<T> selectedItems, T selectedItem) onChange;
 
@@ -85,9 +96,12 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
 
   // add initially selected items and find perpetual selected items count
   void _addInitiallySelectedItemsToSelectedList() {
-    final initiallySelected = _items.where((item) => item.selected || item.perpetualSelected).toList();
+    final initiallySelected = _items
+        .where((item) => item.selected || item.perpetualSelected)
+        .toList();
     _selectedItems.addAll(initiallySelected);
-    _perpetualSelectedItemsCount =  _items.where((item) => item.perpetualSelected).length;
+    _perpetualSelectedItemsCount =
+        _items.where((item) => item.perpetualSelected).length;
     setState(() {});
   }
 
@@ -113,18 +127,22 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
 
   void _onChange(CheckListCard<T> item) {
     if (!item.perpetualSelected) {
-      if (_selectedItems.contains(item)) { // if already selected - deselect item
+      if (_selectedItems.contains(item)) {
+        // if already selected - deselect item
         _selectedItems.remove(item);
         item.selected = false; // change item status
       } else {
         //
         int? maxSelectableCount = widget.maxSelectableCount;
 
-        if (widget.isMaxSelectableWithPerpetualSelects && _perpetualSelectedItemsCount > 0) {
-          maxSelectableCount = (maxSelectableCount ?? 0) + _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
+        if (widget.isMaxSelectableWithPerpetualSelects &&
+            _perpetualSelectedItemsCount > 0) {
+          maxSelectableCount = (maxSelectableCount ?? 0) +
+              _perpetualSelectedItemsCount; // maxSelectingCount = maxSelectingCount + PerpetualSelected items
         }
         //
-        if (maxSelectableCount != null &&  maxSelectableCount <= _selectedItems.length) {
+        if (maxSelectableCount != null &&
+            maxSelectableCount <= _selectedItems.length) {
           final valuesOfSelected = _getValues();
           //
           if (widget.onMaximumSelected != null) {

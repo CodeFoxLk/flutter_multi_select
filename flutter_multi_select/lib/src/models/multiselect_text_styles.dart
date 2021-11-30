@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class MultiSelectItemTextStyles {
   /// Text Style for enabled multi select card.
   final TextStyle? textStyle;
+
   /// Text Style for selected multi select card.
   final TextStyle? selectedTextStyle;
+
   /// Text Style for disabled multi select card
   final TextStyle? disabledTextStyle;
 
@@ -27,7 +29,6 @@ class MultiSelectTextStyles {
   const MultiSelectTextStyles(
       {this.textStyle, this.selectedTextStyle, this.disabledTextStyle});
 
-
   /// The default textStyle for multi select card texts.
   TextStyle getTextStyle(BuildContext context) {
     ColorScheme _colorScheme = Theme.of(context).colorScheme;
@@ -45,7 +46,7 @@ class MultiSelectTextStyles {
         ? TextStyle(
             color: _colorScheme.onSurface,
           )
-        :  TextStyle(color: _colorScheme.onSurface).merge(disabledTextStyle);
+        : TextStyle(color: _colorScheme.onSurface).merge(disabledTextStyle);
   }
 
   /// The textStyle for selected card texts.
