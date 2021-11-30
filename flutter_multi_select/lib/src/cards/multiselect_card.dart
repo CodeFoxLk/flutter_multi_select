@@ -12,7 +12,7 @@ class MultiSelectCard<T> {
   ///
   ///Otherwise, you can use MultiSelectDecorations in MultiSelectContainer<T>. Since this is common for all items under in MultiSelectContainer<T>
   final MultiSelectItemDecorations decorations;
-  ///Unique textStyles for each checklist card. use only if you are willing to add different textStyles for each checklist. 
+  ///Unique textStyles for each multi select card. use only if you are willing to add different textStyles for each checklist. 
   ///
   ///Otherwise, you can use MultiSelectTextStyles in MultiSelectContainer<T>. Since this is common for all items under in MultiSelectContainer<T>
   final MultiSelectItemTextStyles textStyles;
@@ -30,7 +30,7 @@ class MultiSelectCard<T> {
   final MultiSelectPrefix? prefix;
   /// A Unique optional widget to place on the line after.
   final MultiSelectSuffix? suffix;
-  ///if true - enable checklist card
+  ///if true - enable multi select card
   final bool enabled;
   ///Align the [child] or  [label]
   final Alignment? alignment;

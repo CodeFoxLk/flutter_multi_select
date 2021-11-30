@@ -24,8 +24,7 @@ class LimitedChoicesExample extends StatelessWidget {
           MultiSelectCard(value: 'Kotlin', label: 'Kotlin')
         ],
         onMaximumSelected: (allSelectedItems, selectedItem) {
-          CustomSnackBar.showInSnackBar(
-              'The limit has been reached', context);
+          CustomSnackBar.showInSnackBar('The limit has been reached', context);
         },
         onChange: (allSelectedItems, selectedItem) {});
   }

@@ -27,7 +27,6 @@ class MultiSelectCheckListScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -63,10 +62,10 @@ class MultiSelectCheckListScreen extends StatelessWidget {
                             const BorderSide(color: Colors.blue),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)))),
-                onChange: (allSelectedItems, selectedItem) {
-                },
+                onChange: (allSelectedItems, selectedItem) {},
                 onMaximumSelected: (allSelectedItems, selectedItem) {
-                  CustomSnackBar.showInSnackBar('The limit has been reached', context);
+                  CustomSnackBar.showInSnackBar(
+                      'The limit has been reached', context);
                 },
               ),
             )
