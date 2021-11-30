@@ -44,7 +44,7 @@ All **examples** are available  [in this flutter project](https://github.com/Cod
 |onMaximumSelected|Call when reached to the maximum selectable count. |
 
 ------------
-#### Parameters of multiselect container
+#### Parameters of multiselect MultiSelectCard
 ------------
 | Parameter | Description  |
 |--|--|
