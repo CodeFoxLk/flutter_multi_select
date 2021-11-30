@@ -12,7 +12,13 @@
 - Highly customizable.
 
 All **examples** are available  [in this flutter project](https://github.com/CodeFoxLk/flutter_multi_select/tree/master/flutter_multi_select/example "in this flutter project")
+
+------------
+
 <img src="https://i.ibb.co/W5LvZdn/all2.png" alt="flutter multi select" border="0">
+
+------------
+
 <img src="https://i.ibb.co/S6RYnv2/check-list.gif" width = 250 alt="check-list" border="0">
 
 #### Parameters of multiselect container
