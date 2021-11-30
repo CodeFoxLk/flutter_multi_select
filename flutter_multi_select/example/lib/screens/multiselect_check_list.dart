@@ -2,7 +2,7 @@ import 'package:example/themedata/textstyles.dart';
 import 'package:example/widgets/check_list_examples/check_list_data_model.dart';
 import 'package:example/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_selects/flutter_multi_select.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select.dart';
 
 class MultiSelectCheckListScreen extends StatelessWidget {
   MultiSelectCheckListScreen({Key? key}) : super(key: key);

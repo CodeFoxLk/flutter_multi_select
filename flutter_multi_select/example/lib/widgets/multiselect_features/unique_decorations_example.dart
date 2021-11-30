@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_selects/flutter_multi_select.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select.dart';
 
 class UniqueDecorationsExample extends StatelessWidget {
   const UniqueDecorationsExample({
