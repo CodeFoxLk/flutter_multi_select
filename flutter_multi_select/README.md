@@ -1,6 +1,7 @@
 
 
 
+
 <img src="https://i.ibb.co/yqNs9Xf/all.png" alt="flutter multi select items" border="0">
 
 ------------
@@ -15,9 +16,14 @@ All **examples** are available  [in this flutter project](https://github.com/Cod
 
 ------------
 
+**Note** - If you get a compiling error, make sure to upgrade flutter to the newest version or try to use a lower version of flutter multi select items.
+
+------------
+
 <img src="https://i.ibb.co/W5LvZdn/all2.png" alt="flutter multi select" border="0">
 
 ------------
+
 
 <img src="https://i.ibb.co/S6RYnv2/check-list.gif" width = 250 alt="check-list" border="0">
 

@@ -6,3 +6,7 @@
 
 * README.md updated.
 
+## 0.2.0
+
+* Optimized for flutter 2.8.0 and some bugs fixed.
+

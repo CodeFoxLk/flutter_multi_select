@@ -105,7 +105,7 @@ class CheckListViewinitialDecoration extends MultiSelectDecorations {
 
   @override
   Decoration getDecoration(BuildContext context) {
-    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    final ListTileThemeData tileTheme = ListTileTheme.of(context);
     return decoration ??
         BoxDecoration(
           color: tileTheme.tileColor,
@@ -114,7 +114,7 @@ class CheckListViewinitialDecoration extends MultiSelectDecorations {
 
   @override
   Decoration getSelectedDecoration(BuildContext context) {
-    final ListTileTheme tileTheme = ListTileTheme.of(context);
+    final ListTileThemeData tileTheme = ListTileTheme.of(context);
     return selectedDecoration ??
         BoxDecoration(
           color: tileTheme.selectedTileColor,
