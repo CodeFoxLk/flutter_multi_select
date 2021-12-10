@@ -1,4 +1,4 @@
-library flutter_multi_select;
+library flutter_multi_select_items;
 
 export 'src/models/decorations.dart';
 export 'src/models/multiselect_text_styles.dart';
