@@ -10,3 +10,7 @@
 
 * Optimized for flutter 2.8.0 and some bugs fixed.
 
+## 0.2.1
+
+* bugs fixed.
+
