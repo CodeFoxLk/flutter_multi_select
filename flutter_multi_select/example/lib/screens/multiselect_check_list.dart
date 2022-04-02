@@ -15,7 +15,7 @@ class MultiSelectCheckListScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text('Multi Select Check List'),
+          title: const Text('Multi Select Check List '),
           actions: [
             ElevatedButton(
                 onPressed: () {
