@@ -33,7 +33,7 @@ class MultiSelectContainer<T> extends StatefulWidget {
     this.alignments = const MultiSelectAlignments(),
     this.splashColor,
     this.highlightColor,
-    this.controller,
+    this.controller, this.singleSelectedItem = false,
   }) : super(key: key);
 
   /// [MultiSelectCard] List for the multi select container.
@@ -47,6 +47,9 @@ class MultiSelectContainer<T> extends StatefulWidget {
 
   /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
   final bool isMaxSelectableWithPerpetualSelects;
+
+  /// let select only one
+  final bool singleSelectedItem;
 
   /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
@@ -125,16 +128,25 @@ class _SimpleMultiSelectContainerState<T>
   }
 
   // Deselect all selected items excluding Perpetual Selected Items
+  // for controller deselect call back
   void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
-
       return widget.controller!.deSelectPerpetualSelectedItems
           ? true
           : !item.perpetualSelected;
     });
     setState(() {});
   }
+
+  //onlyForDeselect, call from onChange
+  void _clearSelected(){
+    _selectedItems.removeWhere((item) {
+      return item.perpetualSelected ? false : true;
+    });
+    setState(() {});
+  }
+
 
   //Select items excluding disabled Selected Items
   List<T> _selectAll() {
@@ -157,7 +169,10 @@ class _SimpleMultiSelectContainerState<T>
 
   void _onChange(MultiSelectCard<T> item) {
     if (!item.perpetualSelected) {
-      if (_selectedItems.contains(item)) {
+       if(widget.singleSelectedItem){
+        _clearSelected();
+        _selectedItems.add(item);
+      } else if (_selectedItems.contains(item)) {
         // if already selected - deselect item
         _selectedItems.remove(item);
         item.selected = false; // change item status

@@ -34,7 +34,7 @@ class CheckListCard<T> {
   ///if true - initially selected, Can be changed at any time
   bool selected;
 
-  ///if true - perpetual  in the selected position
+  ///if true - perpetual in the selected position
   final bool perpetualSelected;
 
   ///Content padding

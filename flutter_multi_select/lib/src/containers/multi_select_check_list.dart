@@ -23,7 +23,7 @@ class MultiSelectCheckList<T> extends StatefulWidget {
     this.onMaximumSelected,
     required this.onChange,
     this.chechboxScaleFactor = 1,
-    this.controller,
+    this.controller, this.singleSelectedItem = false,
   }) : super(key: key);
 
   /// [CheckListCard] List for check list container.
@@ -37,6 +37,9 @@ class MultiSelectCheckList<T> extends StatefulWidget {
 
   /// if true ->  maxSelectingCount = maxSelectingCount + PerpetualSelected items.
   final bool isMaxSelectableWithPerpetualSelects;
+
+  /// let select only one
+  final bool singleSelectedItem;
 
   /// Common decorations for all items.
   final MultiSelectDecorations itemsDecoration;
@@ -83,8 +86,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   void didUpdateWidget(MultiSelectCheckList<T> oldWidget) {
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
-      widget.controller!.getSelectedItems =
-          oldWidget.controller!.getSelectedItems;
+      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
       widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
@@ -109,8 +111,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
-
-      return widget.controller!.deSelectPerpetualSelectedItems
+       return widget.controller!.deSelectPerpetualSelectedItems
           ? true
           : !item.perpetualSelected;
     });
@@ -125,9 +126,21 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     return _getValues();
   }
 
+  //onlyForDeselect, call from onChange
+    void _clearSelected(){
+      _selectedItems.removeWhere((item) {
+        return item.perpetualSelected ? false : true;
+      });
+      setState(() {});
+    }
+
   void _onChange(CheckListCard<T> item) {
     if (!item.perpetualSelected) {
-      if (_selectedItems.contains(item)) {
+      if(widget.singleSelectedItem){
+        _clearSelected();
+        _selectedItems.add(item);
+      }
+      else if (_selectedItems.contains(item)) {
         // if already selected - deselect item
         _selectedItems.remove(item);
         item.selected = false; // change item status
