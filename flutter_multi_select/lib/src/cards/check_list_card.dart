@@ -2,23 +2,10 @@ import 'package:flutter/cupertino.dart';
 import '../models/decorations.dart';
 import '../models/multiselect_text_styles.dart';
 import '../const/const_values.dart';
+import 'multiselect_container.dart';
 
 ///check list card
-class CheckListCard<T> {
-  ///The value for multi select items. it could be String, int or any type.
-  ///Also, This will be the value or list of values return onChange
-  final T value;
-
-  ///Unique decorations for each checklist card. use only if you are willing to add different decorations for each checklist.
-  ///
-  ///Otherwise, you can use MultiSelectDecorations in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
-  final MultiSelectItemDecorations decorations;
-
-  ///Unique textStyles for each checklist card. use only if you are willing to add different textStyles for each checklist.
-  ///
-  ///Otherwise, you can use MultiSelectTextStyles in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
-  final MultiSelectItemTextStyles textStyles;
-
+class CheckListCard<T> extends MultiSelectCardContainer<T> {
   ///Title of the check list card
   final Widget? title;
 
@@ -27,18 +14,6 @@ class CheckListCard<T> {
 
   ///if true - The checkbox Becomes the leading component of the and if The checkbox Becomes the trailling component of the
   final bool leadingCheckBox;
-
-  ///if true - enable checklist card
-  final bool enabled;
-
-  ///if true - initially selected, Can be changed at any time
-  bool selected;
-
-  ///if true - perpetual in the selected position
-  final bool perpetualSelected;
-
-  ///Content padding
-  final EdgeInsetsGeometry contentPadding;
 
   ///Gap between checkbox and the title
   final double checkBoxGap;
@@ -64,17 +39,46 @@ class CheckListCard<T> {
   ///checkbox border setting
   final BorderSide? checkBoxBorderSide;
 
+  ///final [T] value --
+  ///The value for multi select items. it could be String, int or any type.
+  ///Also, This will be the value or list of values return onChange
+  ///
+  ///
+  ///final MultiSelectItemDecorations decorations --
+  ///Unique [Decoration] for each checklist card. use only if you are willing to add different decorations for each checklist.
+  ///Otherwise, you can use MultiSelectDecorations in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
+  ///
+  ///
+  ///final MultiSelectItemTextStyles textStyles --
+  ///Unique [TextStyle]s for each checklist card. use only if you are willing to add different [TextStyle]s for each checklist.
+  ///Otherwise, you can use MultiSelectTextStyles in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
+  ///
+  ///
+  ///final [EdgeInsetsGeometry]? contentPadding --
+  ///Content padding
+  ///
+  ///
+  ///final bool enabled --
+  ///if true - enable checklist card
+  ///
+  ///
+  ///bool selected --
+  ///if true - initially selected, Can be changed at any time
+  ///
+  ///
+  ///final bool perpetualSelected --
+  ///if true - perpetual in the selected status
   CheckListCard({
-    required this.value,
-    this.decorations = const MultiSelectItemDecorations(),
-    this.textStyles = const MultiSelectItemTextStyles(),
+    required T value,
+    MultiSelectItemDecorations decorations = const MultiSelectItemDecorations(),
+    MultiSelectItemTextStyles textStyles = const MultiSelectItemTextStyles(),
+    bool selected = false,
+    bool enabled = true,
+    EdgeInsets contentPadding = kCheckListPadding,
+    bool perpetualSelected = false,
     this.title,
     this.subtitle,
-    this.selected = false,
     this.leadingCheckBox = true,
-    this.enabled = true,
-    this.perpetualSelected = false,
-    this.contentPadding = kCheckListPadding,
     this.checkBoxGap = 10.0,
     this.hoverColor,
     this.enabledColor,
@@ -83,5 +87,13 @@ class CheckListCard<T> {
     this.checkColor,
     this.shape,
     this.checkBoxBorderSide,
-  });
+  }) : super(
+          value: value,
+          decorations: decorations,
+          textStyles: textStyles,
+          contentPadding: contentPadding,
+          enabled: enabled,
+          selected: selected,
+          perpetualSelected: perpetualSelected,
+        );
 }

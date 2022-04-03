@@ -17,7 +17,7 @@ class MultiSelectItemDecorations {
 }
 
 ///common Decoration styles for the multiselect container
-abstract class MultiSelectDecorations {
+class MultiSelectDecorations {
   /// The decoration to paint child.
   final Decoration? decoration;
 
