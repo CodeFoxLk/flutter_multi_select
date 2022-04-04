@@ -127,6 +127,17 @@ class _SimpleMultiSelectContainerState<T>
     super.didUpdateWidget(oldWidget);
   }
 
+  //add initially selected items and find perpetual selected items count
+  void _addInitiallySelectedItemsToSelectedList() {
+    final initiallySelected = _items
+        .where((item) => item.selected || item.perpetualSelected)
+        .toList();
+    _selectedItems.addAll(initiallySelected);
+    _perpetualSelectedItemsCount =
+        _items.where((item) => item.perpetualSelected).length;
+    setState(() {});
+  }
+
   // Deselect all selected items excluding Perpetual Selected Items
   // for controller deselect call back
   void _deSelectAll() {
@@ -156,17 +167,7 @@ class _SimpleMultiSelectContainerState<T>
     return _getValues();
   }
 
-  //add initially selected items and find perpetual selected items count
-  void _addInitiallySelectedItemsToSelectedList() {
-    final initiallySelected = _items
-        .where((item) => item.selected || item.perpetualSelected)
-        .toList();
-    _selectedItems.addAll(initiallySelected);
-    _perpetualSelectedItemsCount =
-        _items.where((item) => item.perpetualSelected).length;
-    setState(() {});
-  }
-
+  
   void _onChange(MultiSelectCard<T> item) {
     if (!item.perpetualSelected) {
        if(widget.singleSelectedItem){

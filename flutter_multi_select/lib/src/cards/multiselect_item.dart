@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/decorations.dart';
 import '../models/multiselect_text_styles.dart';
 
-abstract class MultiSelectCardContainer<T> {
+abstract class MultiSelectItem<T> {
   ///The value for multi select items. it could be String, int or any type.
   ///Also, This will be the value or list of values return onChange
   final T value;
@@ -31,7 +31,7 @@ abstract class MultiSelectCardContainer<T> {
   final bool perpetualSelected;
 
 
-  MultiSelectCardContainer({
+  MultiSelectItem({
     required this.value,
     required this.decorations,
     required this.textStyles,

@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import '../models/decorations.dart';
 import '../models/multiselect_text_styles.dart';
 import '../const/const_values.dart';
-import 'multiselect_container.dart';
+import 'multiselect_item.dart';
 
 ///check list card
-class CheckListCard<T> extends MultiSelectCardContainer<T> {
+class CheckListCard<T> extends MultiSelectItem<T> {
   ///Title of the check list card
   final Widget? title;
 

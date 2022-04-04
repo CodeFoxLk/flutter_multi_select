@@ -21,6 +21,8 @@ class CommonTextStyleExample extends StatelessWidget {
           MultiSelectCard(value: 'Swift', label: 'Swift'),
           MultiSelectCard(value: 'Kotlin', label: 'Kotlin')
         ],
-        onChange: (allSelectedItems, selectedItem) {});
+        onChange: (allSelectedItems, selectedItem) {
+          
+        });
   }
 }

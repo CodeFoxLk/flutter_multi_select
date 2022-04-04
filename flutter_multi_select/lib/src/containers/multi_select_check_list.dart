@@ -9,7 +9,7 @@ import '../models/multiselect_text_styles.dart';
 import '../cards/check_list_card.dart';
 
 ///Container for multi select check list cards.
-class MultiSelectCheckList<T> extends StatefulWidget {
+class MultiSelectCheckList<T> extends StatefulWidget  {
   const MultiSelectCheckList({
     Key? key,
     required this.items,
@@ -69,7 +69,7 @@ class MultiSelectCheckList<T> extends StatefulWidget {
   _MultiSelectCheckListState<T> createState() => _MultiSelectCheckListState();
 }
 
-class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
+class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>>{
   @override
   void initState() {
     _items = widget.items;
@@ -82,6 +82,10 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     super.initState();
   }
 
+  late final List<CheckListCard<T>> _items;
+  final _selectedItems = <CheckListCard<T>>[];
+  int _perpetualSelectedItemsCount = 0;
+
   @override
   void didUpdateWidget(MultiSelectCheckList<T> oldWidget) {
     if (widget.controller != null) {
@@ -92,9 +96,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
     super.didUpdateWidget(oldWidget);
   }
 
-  late final List<CheckListCard<T>> _items;
-  final _selectedItems = <CheckListCard<T>>[];
-  int _perpetualSelectedItemsCount = 0;
+  
 
   // add initially selected items and find perpetual selected items count
   void _addInitiallySelectedItemsToSelectedList() {

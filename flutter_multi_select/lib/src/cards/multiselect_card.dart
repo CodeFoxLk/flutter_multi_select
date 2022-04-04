@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../const/const_values.dart';
 import '../models/multiselect_prefix.dart';
 import '../models/multiselect_suffix.dart';
 import '../models/multiselect_text_styles.dart';
 import '../models/decorations.dart';
-import 'multiselect_container.dart';
+import 'multiselect_item.dart';
 
-class MultiSelectCard<T> extends MultiSelectCardContainer<T> {
+class MultiSelectCard<T> extends MultiSelectItem<T> {
   ///label for multiselect item
   final String? label;
 
