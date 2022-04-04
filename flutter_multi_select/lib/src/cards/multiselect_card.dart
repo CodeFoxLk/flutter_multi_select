@@ -3,30 +3,14 @@ import '../models/multiselect_prefix.dart';
 import '../models/multiselect_suffix.dart';
 import '../models/multiselect_text_styles.dart';
 import '../models/decorations.dart';
+import 'multiselect_item.dart';
 
-class MultiSelectCard<T> {
-  ///The value for multi select items. it could be String, int or any type.
-  ///Also, This will be the value or list of values return onChange
-  final T value;
-
-  ///Unique decorations for each Items. use only if you are willing to add different decorations for each Items.
-  ///
-  ///Otherwise, you can use MultiSelectDecorations in MultiSelectContainer<T>. Since this is common for all items under in MultiSelectContainer<T>
-  final MultiSelectItemDecorations decorations;
-
-  ///Unique textStyles for each multi select card. use only if you are willing to add different textStyles for each checklist.
-  ///
-  ///Otherwise, you can use MultiSelectTextStyles in MultiSelectContainer<T>. Since this is common for all items under in MultiSelectContainer<T>
-  final MultiSelectItemTextStyles textStyles;
-
+class MultiSelectCard<T> extends MultiSelectItem<T> {
   ///label for multiselect item
   final String? label;
 
   ///child for multiselect item, you can use any widget as the child.
   final Widget? child;
-
-  /// Content padding
-  final EdgeInsetsGeometry? contentPadding;
 
   /// margin for the item
   final EdgeInsetsGeometry? margin;
@@ -40,17 +24,8 @@ class MultiSelectCard<T> {
   /// A Unique optional widget to place on the line after.
   final MultiSelectSuffix? suffix;
 
-  ///if true - enable multi select card
-  final bool enabled;
-
   ///Align the [child] or  [label]
   final Alignment? alignment;
-
-  ///if true - initially selected, Can be changed at any time
-  bool selected;
-
-  ///if true - perpetual in the selected position
-  final bool perpetualSelected;
 
   ///item Splash color
   final Color? splashColor;
@@ -61,24 +36,62 @@ class MultiSelectCard<T> {
   ///Label gap between [prefix] or [suffix]
   final double? labelGap;
 
-  MultiSelectCard(
-      {required this.value,
-      this.decorations = const MultiSelectItemDecorations(),
-      this.textStyles = const MultiSelectItemTextStyles(),
-      this.label,
-      this.child,
-      this.margin,
-      this.clipBehavior = Clip.hardEdge,
-      this.prefix,
-      this.suffix,
-      this.alignment,
-      this.perpetualSelected = false,
-      this.selected = false,
-      this.enabled = true,
-      this.splashColor,
-      this.highlightColor,
-      this.labelGap,
-      this.contentPadding}) {
+  ///final [T] value --
+  ///The value for multi select items. it could be String, int or any type.
+  ///Also, This will be the value or list of values return onChange
+  ///
+  ///
+  ///final MultiSelectItemDecorations decorations --
+  ///Unique [Decoration] for each checklist card. use only if you are willing to add different decorations for each checklist.
+  ///Otherwise, you can use MultiSelectDecorations in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
+  ///
+  ///
+  ///final MultiSelectItemTextStyles textStyles --
+  ///Unique [TextStyle]s for each checklist card. use only if you are willing to add different [TextStyle]s for each checklist.
+  ///Otherwise, you can use MultiSelectTextStyles in MultiSelectCheckList<T>. Since this is common for all items under in MultiSelectCheckList<T>
+  ///
+  ///
+  ///final [EdgeInsetsGeometry]? contentPadding --
+  ///Content padding
+  ///
+  ///
+  ///final bool enabled --
+  ///if true - enable checklist card
+  ///
+  ///
+  ///bool selected --
+  ///if true - initially selected, Can be changed at any time
+  ///
+  ///
+  ///final bool perpetualSelected --
+  ///if true - perpetual in the selected status
+  MultiSelectCard({
+    required T value,
+    MultiSelectItemDecorations decorations = const MultiSelectItemDecorations(),
+    MultiSelectItemTextStyles textStyles = const MultiSelectItemTextStyles(),
+    bool selected = false,
+    bool enabled = true,
+    EdgeInsets? contentPadding,
+    bool perpetualSelected = false,
+    this.label,
+    this.child,
+    this.margin,
+    this.clipBehavior = Clip.hardEdge,
+    this.prefix,
+    this.suffix,
+    this.alignment,
+    this.splashColor,
+    this.highlightColor,
+    this.labelGap,
+  }) : super(
+          value: value,
+          decorations: decorations,
+          textStyles: textStyles,
+          contentPadding: contentPadding,
+          enabled: enabled,
+          selected: selected,
+          perpetualSelected: perpetualSelected,
+        ) {
     if (child == null && label == null) {
       throw FlutterError(
           'The child or label must be provided \n ex - SimpleMultiSelectCard(label: "Dart")');

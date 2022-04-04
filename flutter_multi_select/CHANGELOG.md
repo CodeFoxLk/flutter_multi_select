@@ -14,3 +14,9 @@
 
 * bugs fixed.
 
+## 0.3.0
+
+* bugs fixed.
+* single item selecting feature.
+
+

@@ -17,7 +17,7 @@ class ColorfulCheckList extends StatelessWidget {
       children: [
         Expanded(
           child: MultiSelectCheckList<String>(
-            textStyles: const MultiSelectTextStyles(
+             textStyles: const MultiSelectTextStyles(
                 selectedTextStyle: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             listViewSettings: ListViewSettings(
@@ -41,7 +41,10 @@ class ColorfulCheckList extends StatelessWidget {
                             color: _items[index].color.withOpacity(0.8))),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)))),
-            onChange: (allSelectedItems, selectedItem) {},
+            onChange: (allSelectedItems, selectedItem) {
+              // print(selectedItem);
+              // print(allSelectedItems);
+            },
             onMaximumSelected: (allSelectedItems, selectedItem) {
               CustomSnackBar.showInSnackBar(
                   'The limit has been reached', context);
