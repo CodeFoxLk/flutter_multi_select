@@ -30,14 +30,12 @@ abstract class MultiSelectItem<T> {
   ///if true - perpetual in the selected status
   final bool perpetualSelected;
 
-
-  MultiSelectItem({
-    required this.value,
-    required this.decorations,
-    required this.textStyles,
-    this.contentPadding,
-    this.enabled = true,
-    this.selected = false,
-    this.perpetualSelected = false
-  });
+  MultiSelectItem(
+      {required this.value,
+      required this.decorations,
+      required this.textStyles,
+      this.contentPadding,
+      this.enabled = true,
+      this.selected = false,
+      this.perpetualSelected = false});
 }

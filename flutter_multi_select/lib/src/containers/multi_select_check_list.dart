@@ -9,7 +9,7 @@ import '../models/multiselect_text_styles.dart';
 import '../cards/check_list_card.dart';
 
 ///Container for multi select check list cards.
-class MultiSelectCheckList<T> extends StatefulWidget  {
+class MultiSelectCheckList<T> extends StatefulWidget {
   const MultiSelectCheckList({
     Key? key,
     required this.items,
@@ -23,7 +23,8 @@ class MultiSelectCheckList<T> extends StatefulWidget  {
     this.onMaximumSelected,
     required this.onChange,
     this.chechboxScaleFactor = 1,
-    this.controller, this.singleSelectedItem = false,
+    this.controller,
+    this.singleSelectedItem = false,
   }) : super(key: key);
 
   /// [CheckListCard] List for check list container.
@@ -69,7 +70,7 @@ class MultiSelectCheckList<T> extends StatefulWidget  {
   _MultiSelectCheckListState<T> createState() => _MultiSelectCheckListState();
 }
 
-class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>>{
+class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>> {
   @override
   void initState() {
     _items = widget.items;
@@ -90,13 +91,12 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>>{
   void didUpdateWidget(MultiSelectCheckList<T> oldWidget) {
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
-      widget.controller!.getSelectedItems = oldWidget.controller!.getSelectedItems;
+      widget.controller!.getSelectedItems =
+          oldWidget.controller!.getSelectedItems;
       widget.controller!.selectAll = oldWidget.controller!.selectAll;
     }
     super.didUpdateWidget(oldWidget);
   }
-
-  
 
   // add initially selected items and find perpetual selected items count
   void _addInitiallySelectedItemsToSelectedList() {
@@ -113,7 +113,7 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>>{
   void _deSelectAll() {
     _selectedItems.removeWhere((item) {
       item.selected = false;
-       return widget.controller!.deSelectPerpetualSelectedItems
+      return widget.controller!.deSelectPerpetualSelectedItems
           ? true
           : !item.perpetualSelected;
     });
@@ -129,20 +129,19 @@ class _MultiSelectCheckListState<T> extends State<MultiSelectCheckList<T>>{
   }
 
   //onlyForDeselect, call from onChange
-    void _clearSelected(){
-      _selectedItems.removeWhere((item) {
-        return item.perpetualSelected ? false : true;
-      });
-      setState(() {});
-    }
+  void _clearSelected() {
+    _selectedItems.removeWhere((item) {
+      return item.perpetualSelected ? false : true;
+    });
+    setState(() {});
+  }
 
   void _onChange(CheckListCard<T> item) {
     if (!item.perpetualSelected) {
-      if(widget.singleSelectedItem){
+      if (widget.singleSelectedItem) {
         _clearSelected();
         _selectedItems.add(item);
-      }
-      else if (_selectedItems.contains(item)) {
+      } else if (_selectedItems.contains(item)) {
         // if already selected - deselect item
         _selectedItems.remove(item);
         item.selected = false; // change item status

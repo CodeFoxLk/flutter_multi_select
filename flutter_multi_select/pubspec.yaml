@@ -1,6 +1,6 @@
 name: flutter_multi_select_items
 description: A Flutter package for creating customizable flutter multi select widgets.
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/CodeFoxLk/flutter_multi_select/tree/master/flutter_multi_select
 
 environment:
