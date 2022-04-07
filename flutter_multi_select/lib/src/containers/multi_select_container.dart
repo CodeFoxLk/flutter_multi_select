@@ -34,6 +34,7 @@ class MultiSelectContainer<T> extends StatefulWidget {
     this.splashColor,
     this.highlightColor,
     this.controller, this.singleSelectedItem = false,
+    this.onLongPress,
   }) : super(key: key);
 
   /// [MultiSelectCard] List for the multi select container.
@@ -92,6 +93,9 @@ class MultiSelectContainer<T> extends StatefulWidget {
 
   /// Call when item is selected.
   final void Function(List<T> selectedItems, T selectedItem) onChange;
+
+  /// Call when item is long-pressed.
+  final void Function(T item)? onLongPress;
 
   @override
   _SimpleMultiSelectContainerState createState() =>
@@ -318,6 +322,14 @@ class _SimpleMultiSelectContainerState<T>
           child: InkWell(
             splashColor: item.splashColor ?? widget.splashColor,
             highlightColor: item.highlightColor ?? widget.highlightColor,
+            onLongPress: (item.enabled == false)
+                ? null
+                : () {
+                    var fn = widget.onLongPress;
+                    if (fn != null) {
+                      fn(item.value);
+                    }
+                  },
             onTap: item.enabled == false
                 ? null
                 : () {
