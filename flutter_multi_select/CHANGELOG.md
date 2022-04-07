@@ -23,4 +23,8 @@
 
 * bugs fixed.
 
+## 0.3.2
+
+* bugs fixed.
+
 

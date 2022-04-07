@@ -33,7 +33,8 @@ class MultiSelectContainer<T> extends StatefulWidget {
     this.alignments = const MultiSelectAlignments(),
     this.splashColor,
     this.highlightColor,
-    this.controller, this.singleSelectedItem = false,
+    this.controller,
+    this.singleSelectedItem = false,
   }) : super(key: key);
 
   /// [MultiSelectCard] List for the multi select container.
@@ -151,13 +152,12 @@ class _SimpleMultiSelectContainerState<T>
   }
 
   //onlyForDeselect, call from onChange
-  void _clearSelected(){
+  void _clearSelected() {
     _selectedItems.removeWhere((item) {
       return item.perpetualSelected ? false : true;
     });
     setState(() {});
   }
-
 
   //Select items excluding disabled Selected Items
   List<T> _selectAll() {
@@ -167,10 +167,9 @@ class _SimpleMultiSelectContainerState<T>
     return _getValues();
   }
 
-  
   void _onChange(MultiSelectCard<T> item) {
     if (!item.perpetualSelected) {
-       if(widget.singleSelectedItem){
+      if (widget.singleSelectedItem) {
         _clearSelected();
         _selectedItems.add(item);
       } else if (_selectedItems.contains(item)) {
