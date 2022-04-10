@@ -20,7 +20,10 @@ class HorizontalChipListExample extends StatelessWidget {
           items: [
             MultiSelectCard(value: 'Dart', label: 'Dart'),
             MultiSelectCard(value: 'Python', label: 'Python'),
-            MultiSelectCard(value: 'JavaScript', label: 'JavaScript'),
+            MultiSelectCard(
+              value: 'JavaScript',
+              label: 'JavaScript',
+            ),
             MultiSelectCard(value: 'Java', label: 'Java'),
             MultiSelectCard(value: 'C#', label: 'C#'),
             MultiSelectCard(value: 'C++', label: 'C++'),
