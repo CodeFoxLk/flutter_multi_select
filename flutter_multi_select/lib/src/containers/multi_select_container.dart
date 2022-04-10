@@ -277,8 +277,8 @@ class _SimpleMultiSelectContainerState<T>
                   );
                 },
             itemBuilder: (BuildContext context, int index) {
-              // wrap in the center, otherwise not affect each item's margin and padding properties.
-              // like padding for different padding for a single item.
+              // wrap in the center, otherwise not affect each single item's margin and padding properties.
+              // like different paddings for a single item.
               return Center(
                 child: getItem(_items[index]),
               );

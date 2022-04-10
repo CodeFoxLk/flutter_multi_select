@@ -11,6 +11,7 @@ export 'multiselect_features/unique_decorations_example.dart';
 export 'multiselect_features/unique_text_styles_example.dart';
 export 'multiselect_features/wrapper_settings_example.dart';
 export 'multiselect_features/any_widget_example.dart';
+export 'multiselect_features/horizontal_list_example.dart';
 //Chip examples
 export 'chip_examples/oullinedchips.dart';
 export 'chip_examples/basic_chips.dart';

@@ -381,6 +381,39 @@ complete example code - [flutter multi select Text Style ](https://github.com/Co
                 textStyle: TextStyle(color: Colors.lightBlue)),
           ),..........
 
+### Horizontal chip list
+
+complete example code - [flutter multi select controller](https://github.com/CodeFoxLk/flutter_multi_select/blob/master/flutter_multi_select/example/lib/widgets/multiselect_features/horizontal_list_example.dart)
+
+<img  src="https://i.ibb.co/2vC8SXM/horizontallist.jpg" width=450  alt="flutter multi select"  border="0">
+
+    SizedBox(
+      height: 60,
+      child: MultiSelectContainer(
+          showInListView: true,
+          listViewSettings: ListViewSettings(
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (_, __) => const SizedBox(
+                    width: 10,
+                  )),
+          items: [
+            MultiSelectCard(value: 'Dart', label: 'Dart'),
+            MultiSelectCard(value: 'Python', label: 'Python'),
+            MultiSelectCard(value: 'JavaScript', label: 'JavaScript'),
+            MultiSelectCard(value: 'Java', label: 'Java'),
+            MultiSelectCard(value: 'C#', label: 'C#'),
+            MultiSelectCard(value: 'C++', label: 'C++'),
+            MultiSelectCard(value: 'Go Lang', label: 'Go Lang'),
+            MultiSelectCard(value: 'Swift', label: 'Swift'),
+            MultiSelectCard(value: 'PHP', label: 'PHP'),
+            MultiSelectCard(value: 'Kotlin', label: 'Kotlin')
+          ],
+          onChange: (allSelectedItems, selectedItem) {}),
+    )
+
+------------
+
+
 ### Controller
 
 complete example code - [flutter multi select controller](https://github.com/CodeFoxLk/flutter_multi_select/blob/master/flutter_multi_select/example/lib/widgets/multiselect_features/controller_example.dart)

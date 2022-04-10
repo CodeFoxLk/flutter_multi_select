@@ -90,6 +90,12 @@ class SimpleMultiSelectSceen extends StatelessWidget {
               const UniqueTextStylesExample(),
               divider,
               const Text(
+                'Horizontal chip list',
+                style: titleTS,
+              ),
+              HorizontalChipListExample(),
+              divider,
+              const Text(
                 'Status',
                 style: titleTS,
               ),

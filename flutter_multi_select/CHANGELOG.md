@@ -27,4 +27,7 @@
 
 * bugs fixed.
 
+## 0.4.0
+
+* Horizontal chip list example.
 
