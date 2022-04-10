@@ -277,7 +277,11 @@ class _SimpleMultiSelectContainerState<T>
                   );
                 },
             itemBuilder: (BuildContext context, int index) {
-              return getItem(_items[index]);
+              // wrap in the center, otherwise not affect each item's margin and padding properties.
+              // like padding for different padding for a single item.
+              return Center(
+                child: getItem(_items[index]),
+              );
             },
           )
         : Wrap(
