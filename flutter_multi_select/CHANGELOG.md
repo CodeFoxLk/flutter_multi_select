@@ -31,3 +31,6 @@
 
 * Horizontal chip list example.
 
+## 0.4.2
+
+* selected -> bug fixed.
