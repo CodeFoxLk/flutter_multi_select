@@ -119,7 +119,7 @@ class _SimpleMultiSelectContainerState<T>
 
   @override
   void didUpdateWidget(MultiSelectContainer<T> oldWidget) {
-    _addInitiallySelectedItemsToSelectedList();
+    _setPerpetualSelectedItemsCount();
     if (widget.controller != null) {
       widget.controller!.deselectAll = oldWidget.controller!.deselectAll;
       widget.controller!.getSelectedItems =
@@ -129,12 +129,19 @@ class _SimpleMultiSelectContainerState<T>
     super.didUpdateWidget(oldWidget);
   }
 
-  //add initially selected items and find perpetual selected items count
+  // add initially selected items and find perpetual selected items count
   void _addInitiallySelectedItemsToSelectedList() {
     final initiallySelected = _items
         .where((item) => item.selected || item.perpetualSelected)
         .toList();
     _selectedItems.addAll(initiallySelected);
+    _perpetualSelectedItemsCount =
+        _items.where((item) => item.perpetualSelected).length;
+    setState(() {});
+  }
+
+  // find perpetual selected items count
+  void _setPerpetualSelectedItemsCount() {
     _perpetualSelectedItemsCount =
         _items.where((item) => item.perpetualSelected).length;
     setState(() {});
